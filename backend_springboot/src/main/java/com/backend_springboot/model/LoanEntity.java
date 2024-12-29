@@ -1,4 +1,4 @@
-package com.backend_sprringboot.model;
+package com.backend_springboot.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

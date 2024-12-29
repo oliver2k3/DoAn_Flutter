@@ -1,4 +1,4 @@
-package com.backend_sprringboot.model;
+package com.backend_springboot.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,27 +7,31 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "transition")
+@Table(name = "payments")
 @Data
 @NoArgsConstructor
-public class TransitionEntity {
+public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transition_id")
+    @Column(name = "payment_id")
     private Integer id;
 
-    @Column(name = "from_user")
-    private String fromUser;
+    @Column(name = "for_user")
+    private String forUser;
 
-    @Column(name = "to_user")
-    private String toUser;
+    @Column(name = "category")
+    private String category;
 
     @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "fee")
-    private Double fee;
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "created_at")
     private LocalDateTime created;
+
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.backend_sprringboot.model;
+package com.backend_springboot.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
