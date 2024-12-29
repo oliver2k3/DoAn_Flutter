@@ -1,4 +1,4 @@
-package model;
+package com.backend_sprringboot.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

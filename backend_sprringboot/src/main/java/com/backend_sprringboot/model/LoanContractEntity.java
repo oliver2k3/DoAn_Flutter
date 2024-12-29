@@ -1,4 +1,4 @@
-package model;
+package com.backend_sprringboot.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

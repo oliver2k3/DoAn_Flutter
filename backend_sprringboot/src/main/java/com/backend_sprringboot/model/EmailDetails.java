@@ -1,4 +1,4 @@
-package model;
+package com.backend_sprringboot.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
