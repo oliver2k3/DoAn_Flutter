@@ -1,4 +1,4 @@
-import 'package:doan_flutter/Screen/SignInScreen.dart';
+import 'package:doan_flutter/screens/SignInScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
