@@ -20,14 +20,16 @@ class _MyRegisterState extends State<MyRegister> {
     final String password = _passwordController.text;
 
     final response = await http.post(
-      Uri.parse('http://192.168.1.9/api/user'),
+      Uri.parse('http://192.168.1.9:8080/api/user'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
         'name': name,
         'email': email,
+        "cardNumber": "1234567890",
         'password': password,
+        "fullName": "name",
       }),
     );
 

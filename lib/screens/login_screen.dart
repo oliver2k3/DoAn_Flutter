@@ -3,7 +3,8 @@ import 'package:doan_flutter/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -200,10 +201,30 @@ class _MyLoginState extends State<MyLogin> {
     );
   }
 
-  void login() {
-    if (isChecked) {
-      box1.put('email', email.text);
-      box1.put('password', password.text);
+  void login() async {
+    final response = await http.post(
+      Uri.parse('http://192.168.1.9:8080/api/user/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email.text,
+        'password': password.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      if (isChecked) {
+        box1.put('email', email.text);
+        box1.put('password', password.text);
+      }
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+        return HomePage();
+      }));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Invalid credentials. Please try again.')),
+      );
     }
   }
 }
