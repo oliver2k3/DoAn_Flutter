@@ -5,14 +5,14 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
 
   @override
   _MyLoginState createState() => _MyLoginState();
 }
-
+final storage = FlutterSecureStorage();
 class _MyLoginState extends State<MyLogin> {
   bool isChecked = false;
   TextEditingController email = TextEditingController();
@@ -143,9 +143,7 @@ class _MyLoginState extends State<MyLogin> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                                        return HomePage();
-                                      },),);
+
                                       login();
                                     },
                                     icon: Icon(
@@ -214,17 +212,47 @@ class _MyLoginState extends State<MyLogin> {
     );
 
     if (response.statusCode == 200) {
+      final responseBody = jsonDecode(response.body);
+      final token = responseBody['token'];
+
+      // Store the token securely
+      print('Authorization: Bearer $token');
+      await storage.write(key: 'Authorization', value: 'Bearer $token');
+
       if (isChecked) {
         box1.put('email', email.text);
         box1.put('password', password.text);
       }
+      getCurrentUser();
       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
         return HomePage();
-      }));
+      },
+      ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Invalid credentials. Please try again.')),
       );
+    }
+  }
+  void getCurrentUser() async {
+    final token = await storage.read(key: 'Authorization');
+
+    if (token != null) {
+      final response = await http.get(
+        Uri.parse('http://192.168.1.9:8080/api/user/current-user'),
+        headers: <String, String>{
+          'Authorization': token,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        print('Current User: $responseBody');
+      } else {
+        print('Failed to retrieve current user.');
+      }
+    } else {
+      print('No token found.');
     }
   }
 }
