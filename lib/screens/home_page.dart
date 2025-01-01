@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-
+import '../widgets/account_info_widget.dart';
 import '../util/file_path.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String name = '';
+
+  void _updateName(String newName) {
+    setState(() {
+      name = newName;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 16,
               ),
-              _contentOverView(),
+              AccountInfoWidget(onNameChanged: _updateName),
               const SizedBox(
                 height: 30,
               ),
@@ -95,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               width: 12,
             ),
             Text(
-              'Ví điện tử',
+              'Xin chào, $name',
               style: Theme.of(context).textTheme.displaySmall,
             )
           ],
@@ -103,11 +110,7 @@ class _HomePageState extends State<HomePage> {
         InkWell(
           onTap: () {
             setState(() {
-              // print('call');
-              // xOffset = 240;
-              // yOffset = 180;
-              // scaleFactor = 0.7;
-              // isDrawerOpen = true;
+              // Handle drawer open
             });
           },
           child: SvgPicture.asset(
@@ -117,54 +120,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _contentOverView() {
-    return Container(
-      padding: const EdgeInsets.only(left: 18, right: 18, top: 22, bottom: 22),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).cardColor,
-        // color: const Color(0xffF1F3F6),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                '20,600',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                'Số dư hiện tại',
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                ),
-              )
-            ],
-          ),
-          Container(
-            height: 55,
-            width: 55,
-            decoration: BoxDecoration(
-              color: const Color(0xffFFAC30),
-              borderRadius: BorderRadius.circular(80),
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.add,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -196,117 +151,57 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          _buildSendMoneyItem(avatorOne, 'Mike'),
+          _buildSendMoneyItem(avatorTwo, 'Joseph'),
+          _buildSendMoneyItem(avatorThree, 'Ashley'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSendMoneyItem(String avatar, String name) {
+    return Container(
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.all(16),
+      width: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).cardColor,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.all(16),
-            width: 80,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor,
+              shape: BoxShape.circle,
+              border: Border.all(color: const Color(0xffD8D9E4)),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xffD8D9E4))),
-                  child: CircleAvatar(
-                    radius: 22.0,
-                    backgroundColor: Theme.of(context).colorScheme.background,
-                    child: ClipRRect(
-                      child: SvgPicture.asset(avatorOne),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Mike',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )
-              ],
+            child: CircleAvatar(
+              radius: 22.0,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
+                child: SvgPicture.asset(avatar),
+              ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.all(16),
-            width: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xffD8D9E4))),
-                  child: CircleAvatar(
-                    radius: 22.0,
-                    backgroundColor: Theme.of(context).colorScheme.background,
-                    child: ClipRRect(
-                      child: SvgPicture.asset(avatorTwo),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Joseph',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.all(16),
-            width: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).cardColor,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xffD8D9E4))),
-                  child: CircleAvatar(
-                    radius: 22.0,
-                    backgroundColor: Theme.of(context).colorScheme.background,
-                    child: ClipRRect(
-                      child: SvgPicture.asset(avatorThree),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Ashley',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                )
-              ],
-            ),
-          )
+          Text(name, style: Theme.of(context).textTheme.bodyLarge),
         ],
       ),
     );
   }
 
   Widget _contentServices(BuildContext context) {
-    List<ModelServices> listServices = [];
-
-    listServices.add(ModelServices(title: "Gửi\ntiền", img: send));
-    listServices.add(ModelServices(title: "Nhận\ntiền", img: recive));
-    listServices.add(ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile));
-    listServices
-        .add(ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity));
-    listServices.add(ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback));
-    listServices.add(ModelServices(title: "Mua vé\nxem phim", img: movie));
-    listServices.add(ModelServices(title: "Mua vé\nmáy bay", img: flight));
-    listServices.add(ModelServices(title: "Vay\ntiền", img: menu));
+    List<ModelServices> listServices = [
+      ModelServices(title: "Gửi\ntiền", img: send),
+      ModelServices(title: "Nhận\ntiền", img: recive),
+      ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile),
+      ModelServices(title: "Thanh toán\nhóa đ��n điện", img: electricity),
+      ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback),
+      ModelServices(title: "Mua vé\nxem phim", img: movie),
+      ModelServices(title: "Mua vé\nmáy bay", img: flight),
+      ModelServices(title: "Vay\ntiền", img: menu),
+    ];
 
     return SizedBox(
       width: double.infinity,
@@ -318,7 +213,7 @@ class _HomePageState extends State<HomePage> {
         children: listServices.map((value) {
           return GestureDetector(
             onTap: () {
-              // print('${value.title}');
+              // Handle service tap
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -352,9 +247,7 @@ class _HomePageState extends State<HomePage> {
           );
         }).toList(),
       ),
-
     );
-
   }
 }
 
