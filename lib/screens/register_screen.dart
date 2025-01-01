@@ -13,11 +13,13 @@ class _MyRegisterState extends State<MyRegister> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   Future<void> _register() async {
     final String name = _nameController.text;
     final String email = _emailController.text;
     final String password = _passwordController.text;
+    final String phoneNumber = _phoneNumberController.text;
 
     final response = await http.post(
       Uri.parse('http://192.168.1.9:8080/api/user'),
@@ -27,17 +29,16 @@ class _MyRegisterState extends State<MyRegister> {
       body: jsonEncode(<String, String>{
         'name': name,
         'email': email,
-        "cardNumber": "1234567890",
         'password': password,
-        "fullName": "name",
+        'phoneNumber': phoneNumber,
+
+        'fullName': name,
       }),
     );
 
     if (response.statusCode == 201) {
-      // If the server returns a 201 CREATED response, navigate to the login screen
       Navigator.pushNamed(context, 'login');
     } else {
-      // If the server did not return a 201 CREATED response, show an error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to register. Please try again.')),
       );
@@ -145,6 +146,31 @@ class _MyRegisterState extends State<MyRegister> {
                                   ),
                                 ),
                                 hintText: "Password",
+                                hintStyle: TextStyle(color: Colors.white),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          TextField(
+                            controller: _phoneNumberController,
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                hintText: "Phone Number",
                                 hintStyle: TextStyle(color: Colors.white),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
