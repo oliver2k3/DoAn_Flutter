@@ -1,5 +1,7 @@
 
 import 'package:doan_flutter/screens/home_page.dart';
+import 'package:doan_flutter/screens/login_screen.dart';
+import 'package:doan_flutter/screens/register_screen.dart';
 import 'package:doan_flutter/util/constant.dart';
 import 'package:doan_flutter/util/theme.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +47,11 @@ class _MyAppState extends State<MyApp> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home: const HomePage(
-
-      ),
+      home: const MyLogin(),
+      routes: {
+        'register': (context) => MyRegister(),
+        'login': (context) => MyLogin(),
+      },
     );
   }
 }
