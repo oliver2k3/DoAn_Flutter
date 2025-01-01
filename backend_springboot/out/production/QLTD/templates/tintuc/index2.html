@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutdetail}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li>/</li>
+                <li><span>News Default</span></li>
+            </ul><!-- /.thm-breadcrumb list-unstyled -->
+            <h2>News Default</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+    <section class="blog-details pt-100 pb-100">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8"  >
+                    <div class="blog-card" th:each="tintuc : ${news}">
+                        <div class="blog-card__image">
+                            <span th:text="${tintuc.timeActive}"></span>
+                            <img th:src="@{${'/images/tintuc/'+tintuc.image1}}" alt="">
+                        </div><!-- /.blog-card__image -->
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <a href="#"><i class="far fa-user" th:text="${tintuc.user.name}"></i></a>
+                                <a ><i class="far fa-credit-card" th:text="${tintuc.category.name}"></i></a>
+
+                            </div><!-- /.blog-card__meta -->
+                            <h3><a th:href="@{/tintuc/detail/{id}(id= ${tintuc.id} )}" th:text="${tintuc.title}"></a></h3>
+                            <p th:text="${tintuc.paragraph1}"> </p>
+                            <div class="blog-card__bottom">
+                                <div class="blog-card-bottom-readmore">
+                                    <a th:href="@{/tintuc/detail/{id}(id= ${tintuc.id} )}" ><i class="pylon-icon-right-arrow"></i>Chi tiết</a>
+                                </div><!-- /.blog-card-bottom-readmore-->
+                                <span class="blog_comment">
+                                    <a href="#"><i class="far fa-comments"></i>@item.Comments Comments</a>
+                                </span>
+                            </div><!-- /.blog-card__bottom -->
+                        </div><!-- /.blog-card__content -->
+                    </div>
+
+                    <!-- /.blog-card -->
+
+                </div><!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div class="blog-sidebar blog-sidebar__details">
+                        <div class="blog-sidebar__box blog-sidebar__search">
+                            <form class="search-form">
+                                <input type="text" placeholder="Search" class="search-field">
+                                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div><!-- /.blog-sidebar__box -->
+                        <div class="blog-sidebar__box blog-sidebar__categories">
+                            <h3 class="blog-sidebar__box-title">Danh mục</h3>
+                            <ul class="list-unstyled">
+                                <li th:each="category: ${categories}">
+                                    <a th:href="@{/tintuc/(categoryId=${category.id})}"><i class="far fa-arrow-right"></i><span th:text="${category.name}"></span></a>
+                                    (1)
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="blog-sidebar__box blog-sidebar__post">
+                            <h3 class="blog-sidebar__box-title">Recent Posts</h3><!-- /.blog-sidebar__title -->
+
+                            <ul class="list-unstyled footer-widget__post-list">
+                                <li>
+                                    <img src="@item.Image1" style="max-height:70px" alt="">
+                                    <div class="footer-widget__post-list-content">
+                                        <span>@item.TimeUpload</span>
+                                        <h3><a asp-controller="Tintuc" asp-action="Details" asp-route-id="@item.Id"> @item.Title</a></h3>
+                                    </div><!-- /.footer-widget__post-content -->
+                                </li>
+
+                            </ul>
+
+                            <!-- /.list-unstyled -->
+
+                        </div><!-- /.blog-sidebar__box -->
+
+
+                        <div class="blog-sidebar__box blog-sidebar__call">
+                            <div class="service-sidebar__call">
+                                <div class="service-sidebar__call-bg" style="background-image: url(assets/images/services/service-sidebar-1-1.jpg);"></div><!-- /.service-sidebar__call-bg -->
+                                <i class="pylon-icon-tech-support"></i>
+                                <h3><a href="tel:(+01)123 456 7890">0812999999</a></h3>
+                                <div class="pylon-mail">
+                                    <a href="mailto:info@company.com">info@company.com</a>
+                                </div>
+                                <p>We are here to help our customer any time. You can call on 24/7 To Answer Your Question.</p>
+                            </div>
+                        </div><!-- /.service-sidebar__call -->
+
+                    </div><!-- /.blog-sidebar -->
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.blog-details -->
+
+</section>
+</body>
+</html>

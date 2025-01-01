@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+        layout:decorate="~{layout}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container mt-5" layout:fragment="content" >
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <section class="main-slider">
+        <div class="swiper-container thm-swiper__slider" data-swiper-options='{
+        "slidesPerView": 1,
+        "loop": true,
+        "effect": "fade",
+        "autoplay": {
+            "delay": 5000
+        },
+        "navigation": {
+            "nextEl": "#main-slider__swiper-button-next",
+            "prevEl": "#main-slider__swiper-button-prev"
+        }
+    }'>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="image-layer" style="background-image: url(../Layout/User/assets/images/main-slider/main-slider-1-1.jpg);"></div>
+                    <!-- /.image-layer -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <p>Simple & Secure Payment Process</p>
+                                <h2>
+                                    Giải Pháp
+                                    Tài Chính
+                                    Hoàn Hảo
+
+
+                                </h2>
+                                <a asp-action="Index" asp-controller="HopDongVay" class=" thm-btn">Đăng kí vay ngay</a>
+                                <!-- /.thm-btn dynamic-radius -->
+                            </div><!-- /.col-lg-7 text-right -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+                </div><!-- /.swiper-slide -->
+                <div class="swiper-slide">
+                    <div class="image-layer" style="background-image: url(../Layout/User/assets/images/main-slider/main-slider-1-2.jpg);"></div>
+                    <!-- /.image-layer -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <p>Simple & Secure Payment Process</p>
+                                <h2>
+                                    Giải Pháp
+                                    Tài Chính
+                                    Hoàn Hảo
+
+
+                                </h2>
+                                <a asp-action="Index" asp-controller="HopDongVay" class=" thm-btn">Đăng kí vay ngay</a>
+                                <!-- /.thm-btn dynamic-radius -->
+                            </div><!-- /.col-lg-7 text-right -->
+                        </div>
+                    </div><!-- /.container -->
+                </div><!-- /.swiper-slide -->
+                <div class="swiper-slide">
+                    <div class="image-layer" style="background-image: url(../Layout/User/assets/images/main-slider/main-slider-1-1.jpg);"></div>
+                    <!-- /.image-layer -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <p>Simple & Secure Payment Process</p>
+                                <h2>
+                                    Giải Pháp
+                                    Tài Chính
+                                    Hoàn Hảo
+
+
+                                </h2>
+                                <a asp-action="Index" asp-controller="HopDongVay" class=" thm-btn">Đăng kí vay ngay</a>
+                                <!-- /.thm-btn dynamic-radius -->
+                            </div><!-- /.col-lg-7 text-right -->
+                        </div>
+                    </div><!-- /.container -->
+                </div><!-- /.swiper-slide -->
+            </div><!-- /.swiper-wrapper -->
+            <!-- If we need navigation buttons -->
+            <div class="main-slider__nav">
+                <div class="swiper-button-prev" id="main-slider__swiper-button-next"><i class="pylon-icon-left-arrow"></i></div>
+                <div class="swiper-button-next" id="main-slider__swiper-button-prev"><i class="pylon-icon-right-arrow"></i></div>
+            </div><!-- /.main-slider__nav -->
+
+        </div><!-- /.swiper-container thm-swiper__slider -->
+        <div class="feature-two">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-duration="1500ms">
+                                <div class="feature-two__box">
+                                    <i class="pylon-icon-consumer-behavior"></i>
+                                    <p>
+                                        Duyệt hồ
+                                        sơ nhanh
+                                    </p>
+                                </div><!-- /.feature-two__box -->
+                            </div><!-- /.col-lg-4 col-md-6 -->
+                            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-duration="1500ms">
+                                <div class="feature-two__box">
+                                    <i class="pylon-icon-point-of-sale"></i>
+                                    <p>
+                                        Không tính
+                                        phí hồ sơ
+
+
+                                    </p>
+                                </div><!-- /.feature-two__box -->
+                            </div><!-- /.col-lg-4 col-md-6 -->
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </div><!-- /.feature-two -->
+    </section><!-- /.main-slider -->
+
+    <section class="about-one">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-7">
+                    <div class="about-one__content">
+                        <div class="block-title text-left">
+                            <p>Giới thiệu công ty</p>
+                            <h2>Vì Tương Lai Tươi Đẹp Của Bạn</h2>
+                        </div><!-- /.block-title -->
+                        <p>
+                            Phát triển tương lai thịnh vượng và hiện thực hóa nhiều ước mơ của khách hàng
+                            Hỗ trợ tài chính tiêu dùng, phục vụ đời sống, chăm sóc chất lượng sống hoặc mua xe ô tô
+
+                        </p>
+                    </div><!-- /.about-one__content -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="feature-four__box text-left">
+                                <!-- .feature-four__box -->
+                                <div class="feature-four__box-inner">
+
+                                    <div class="feature-four__box-icon"><i class="flaticon flaticon-property-1"></i></div>
+                                    <div class="feature-four__box-right">
+                                        <h3>
+                                            Giải thưởng
+                                        </h3>
+                                        <p>Giành được hơn 10 giải thưởng cho các hạng mục tài chính</p>
+                                    </div>
+                                </div>
+                            </div><!-- /.feature-four__box -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-four__box text-left">
+                                <!-- .feature-four__box -->
+                                <div class="feature-four__box-inner">
+                                    <div class="feature-four__box-icon"><i class="flaticon flaticon-growth-1"></i></div>
+                                    <div class="feature-four__box-right">
+                                        <h3>
+                                            Công ty được chứng nhận
+                                        </h3>
+                                        <p>Công ty tài chính được chấp thuận để cung cấp các khoản vay</p>
+                                    </div>
+                                </div>
+                            </div><!-- /.feature-four__box -->
+                        </div>
+                    </div>
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-12 col-xl-5">
+                    <form action="#" id="loan-calculator" class="about-one__form wow fadeInUp" data-wow-duration="1500ms">
+                        <h3>Ước tính khoản vay</h3>
+                        <div class="about-one__form-content">
+                            <div class="input-box__top">
+                                <span>1,000,000VNĐ</span>
+                                <span>100,000,000VNĐ</span>
+                            </div><!-- /.input-box__top -->
+                            <div class="input-box">
+                                <div class="range-slider-count" id="range-slider-count"></div>
+                                <input type="hidden" value="" id="min-value-rangeslider-count">
+                                <input type="hidden" value="" id="max-value-rangeslider-count">
+                            </div><!-- /.input-box -->
+                            <div class="input-box__top">
+                                <span>1 Tháng</span>
+                                <span>12 Tháng</span>
+                            </div><!-- /.input-box__top -->
+                            <div class="input-box">
+                                <div class="range-slider-month" id="range-slider-month"></div>
+                                <input type="hidden" value="" id="min-value-rangeslider-month">
+                                <input type="hidden" value="" id="max-value-rangeslider-month">
+                            </div><!-- /.input-box -->
+                            <div class="input-box__top">
+                                <span>1%</span>
+                                <span>15%</span>
+                            </div><!-- /.input-box__top -->
+                            <div class="input-box">
+                                <div class="range-slider-interest" id="range-slider-interest"></div>
+                                <input type="hidden" value="" id="min-value-rangeslider-interest">
+                                <input type="hidden" value="" id="max-value-rangeslider-interest">
+                            </div><!-- /.input-box -->
+                            <p>
+                                <span>Khoản thanh toán hàng tháng</span>
+                                <b><i id="loan-monthly-pay"></i>VNĐ</b>
+                            </p>
+                            <p>
+                                <span>Tổng thanh toán</span>
+                                <b><i id="loan-total"></i>VNĐ</b>
+                            </p>
+                            <a asp-action="Index" asp-controller="HopDongVay" class=" thm-btn">Đăng kí vay ngay</a>
+                        </div><!-- /.about-one__from-content -->
+                    </form><!-- /.about-one__form -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.about-one -->
+
+    <section class="service-one">
+        <div class="container">
+            <div class="block-title text-center">
+                <p>Những gì chúng tôi đang cung cấp</p>
+                <h2>Các gói vay</h2>
+            </div><!-- /.block-title -->
+            <div class="row">
+
+                <!--/*@thymesVar id="goivay" type="com.nhom7.qltd.model.GoiVay"*/-->
+                <div th:each="goivay : ${goivays}" class="col-lg-4" >
+                    <div class="service-one__card">
+                        <div class="service-one__image">
+                            <a asp-controller="GoiVay" asp-action="Details" asp-route-id="@item.Id">
+                                <div class="post-thumbnail">
+                                    <img th:src="@{${'/images/goivay/' + goivay.image}}" style="max-height:210px" alt="">
+                                </div>
+                            </a>
+                        </div><!-- /.service-one__image -->
+                        <div class="service-one__content">
+                            <a asp-controller="GoiVay" asp-action="Details" asp-route-id="@item.Id">
+                                <div class="service-icon">
+                                    <i class="flaticon-car-loan"></i>
+                                </div>
+                            </a>
+                            <h3><a asp-controller="GoiVay" asp-action="Details" asp-route-id="@item.Id" th:text="${goivay.tenGoiVay}"></a></h3>
+
+                            <a th:text="${goivay.moTa1}"></a>
+
+
+                            <a asp-controller="GoiVay" asp-action="Details" asp-route-id="@item.Id" class="pylon-icon-right-arrow service-one__link"></a><!-- /.service-one__link -->
+                        </div><!-- /.service-one__content -->
+                    </div><!-- /.service-one__card -->
+                </div><!-- /.col-lg-4 -->
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.service-one -->
+
+    <section class="feature-one">
+        <img src="../Layout/User/assets/images/shapes/feature-shape-1-1.png" alt="" class="feature-one__shape-1">
+        <img src="../Layout/User/assets/images/shapes/feature-shape-1-2.png" alt="" class="feature-one__shape-2">
+        <img src="../Layout/User/assets/images/shapes/feature-shape-1-3.png" alt="" class="feature-one__shape-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="block-title text-left">
+                        <p>Get to Know About</p>
+                        <h2>Khoản vay kinh doanh linh hoạt và nhanh chóng dành cho bạn</h2>
+                    </div><!-- /.block-title -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <p class="block-text">Bạn đang tìm kiếm nguồn vốn để khởi động, mở rộng hoặc phát triển doanh nghiệp của mình?
+                        <br />Chúng tôi cung cấp các gói vay linh hoạt và nhanh chóng để giúp bạn đạt được mục tiêu kinh doanh của mình.
+                        <br />    Đội ngũ chuyên viên tư vấn giàu kinh nghiệm: luôn sẵn sàng hỗ trợ bạn giải đáp mọi thắc mắc và lựa chọn giải pháp vay phù hợp nhất.
+                        <br /> Nhiều chương trình ưu đãi: dành cho khách hàng doanh nghiệp.
+
+                    </p><!-- /.block-text -->
+                    </p><!-- /.block-text -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="feature-one__box">
+                        <i class="pylon-icon-assets"></i>
+                        <p>
+                            Lãi suất cực thấp
+                            cho tất cả gói vay
+                        </p>
+                    </div><!-- /.feature-one__box -->
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <div class="feature-one__box">
+                        <i class="pylon-icon-verification"></i>
+                        <p>
+                            99.9% Tỷ lệ thành công
+                            thanh toán khoản vay
+                        </p>
+                    </div><!-- /.feature-one__box -->
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                    <div class="feature-one__box">
+                        <i class="pylon-icon-finance"></i>
+                        <p>
+                            Trả nợ linh hoạt
+                        </p>
+                    </div><!-- /.feature-one__box -->
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.feature-one -->
+
+    <section class="trusted-company">
+        <div class="trusted-company__bg" style="background-image: url(../Layout/User/assets/images/shapes/trust-bg-1-1.png);"></div><!-- /.trusted-company__bg -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="trusted-company__content">
+                        <div class="block-title text-left">
+                            <p>Công ty đáng tin cậy</p>
+                            <h2>Hầu hết mọi người tin tưởng vào dịch vụ nhanh chóng của chúng tôi</h2>
+                        </div><!-- /.block-title -->
+                        <div class="trusted-company__image">
+                            <img src="../Layout/User/assets/images/resources/trust-1-1.png" alt="" height="148" width="171">
+                            <p >
+                                <br />Chúng tôi cung cấp các gói vay linh hoạt và nhanh chóng để giúp bạn đạt được mục tiêu kinh doanh của mình.
+                                <br />    Đội ngũ chuyên viên tư vấn giàu kinh nghiệm: luôn sẵn sàng hỗ trợ bạn giải đáp mọi thắc mắc và lựa chọn giải pháp vay phù hợp nhất.
+
+
+                            </p>                            </div><!-- /.trusted-company__image -->
+                        <div class="row">
+                            <div class="col-sm-5 col-xs-12">
+                                <ul class="trusted-company__list">
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Credit Card Per Day</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Personal Loan</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Car / Auto Loan</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Home Loan</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                </ul><!-- /.trusted-company__list-->
+                            </div><!-- /.col-md-5-->
+                            <div class="col-sm-6 col-xs-12">
+                                <ul class="trusted-company__list trusted-company__list-2">
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Gold Loan Per Day</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Mortage Loan</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Education / Student Loan</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                    <li class="trusted-company__list-item">
+                                            <span>
+                                                <i aria-hidden="true" class="far fa-check-circle"></i>
+                                            </span>
+                                        <span class="trusted-company__list-text">Wedding Loan</span>
+                                    </li><!-- /.trusted-company__list-item-->
+                                </ul><!-- /.trusted-company__list-->
+                            </div><!-- /.col-md-6-->
+                        </div>
+                    </div><!-- /.trusted-company__content -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="trusted-company__box-wrap">
+                        <div class="trusted-company__box">
+                            <span>1</span>
+                            <p>Giải pháp cho vay dễ dàng dành cho cơ quan, doanh nghiệp và công ty nhỏ</p>
+                        </div><!-- /.trusted-company__box -->
+                        <div class="trusted-company__box">
+                            <span>2</span>
+                            <p>
+                                Gửi tài liệu cần thiết và chi tiết để phê duyệt khoản vay
+                            </p>
+                        </div><!-- /.trusted-company__box -->
+                        <div class="trusted-company__box">
+                            <span>3</span>
+                            <p>Đăng kí gói vay của chúng tôi ngay bây giờ và thanh toán sau khi hoàn thành hồ sơ</p>
+                        </div><!-- /.trusted-company__box -->
+                        <div class="trusted-company__box">
+                            <span>4</span>
+                            <p>
+                                Nhận khoản vay nhỏ cho nhiều nhu cầu hơn trong 2 giờ với ít tài liệu hơn
+                            </p>
+                        </div><!-- /.trusted-company__box -->
+                    </div><!-- /.trusted-company__box-wrap -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.trusted-company -->
+
+
+    <section class="testimonials-one">
+        <div class="container">
+            <div class="block-title text-center">
+                <p>Trải nghiệm của khách hàng</p>
+                <h2>Trải nghiệm của khách hàng</h2>
+            </div><!-- /.block-title -->
+            <div class="thm-swiper__slider swiper-container" data-swiper-options='{
+        "spaceBetween": 0,
+        "slidesPerView": 1,
+        "slidesPerGroup": 1,
+        "loop":true,
+        "autoplay": {
+            "delay": 5000
+        },
+        "pagination": {
+            "el": ".testimonials-one__swiper-pagination",
+            "type": "bullets",
+            "clickable": true
+        },
+        "breakpoints": {
+            "0": {
+                "spaceBetween": 0,
+                "slidesPerView": 1,
+                "slidesPerGroup": 1
+            },
+            "375": {
+                "spaceBetween": 0,
+                "slidesPerView": 1,
+                "slidesPerGroup": 1
+            },
+            "667": {
+                "spaceBetween": 30,
+                "slidesPerView": 1,
+                "slidesPerGroup": 1
+            },
+            "767": {
+                "spaceBetween": 30,
+                "slidesPerView": 1,
+                "slidesPerGroup": 1
+            },
+            "991": {
+                "spaceBetween": 30,
+                "slidesPerView": 2,
+                "slidesPerGroup": 2
+            },
+            "1199": {
+                "spaceBetween": 30,
+                "slidesPerView": 3,
+                "slidesPerGroup": 3
+            }
+        }}'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p><span>Lãi suất vay tại đây rất hấp dẫn nên tôi  lựa chọn sản phẩm vay tại đây để giải quyết các nhu cầu chi tiêu cá nhân. Tôi hài lòng khi nhân viên luôn hỗ trợ kịp thời và nhanh chóng..</span></p>
+                            <h3>Clyde Williamson</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-1.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p><span>Là một lập trình viên, tôi bị ảnh hưởng ít nhiều bởi tính chất công việc khi lựa chọn dịch vụ từ công ty tài chính. Và công ty đã làm tôi tin tưởng bởi sự đảm bảo an toàn thông tin của khách hàng..</span></p>
+                            <h3>Vernon Ray</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-2.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p>
+                            <span>
+                                Khi trải nghiệm các dịch vụ tại đây, tôi bất ngờ và thật sự hài lòng vì sự tận tâm trong quá trình phục vụ khách hàng của nhân viên tại đây Và công ty đã làm tôi tin tưởng bởi sự đảm bảo an toàn thông tin của khách hàng.
+
+                        </span></p>
+                            <h3>Gary Dawson</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-3.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p><span>Lãi suất vay tại đây rất hấp dẫn nên tôi  lựa chọn sản phẩm vay tại đây để giải quyết các nhu cầu chi tiêu cá nhân. Tôi hài lòng khi nhân viên luôn hỗ trợ kịp thời và nhanh chóng..</span></p>
+                            <h3>Clyde Williamson</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-1.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p><span>Là một lập trình viên, tôi bị ảnh hưởng ít nhiều bởi tính chất công việc khi lựa chọn dịch vụ từ công ty tài chính. Và công ty đã làm tôi tin tưởng bởi sự đảm bảo an toàn thông tin của khách hàng..</span></p>
+                            <h3>Vernon Ray</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-2.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p>
+                            <span>
+                                Khi trải nghiệm các dịch vụ tại đây, tôi bất ngờ và thật sự hài lòng vì sự tận tâm trong quá trình phục vụ khách hàng của nhân viên tại đây Và công ty đã làm tôi tin tưởng bởi sự đảm bảo an toàn thông tin của khách hàng.
+
+                            </span>
+                            </p>
+                            <h3>Gary Dawson</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-3.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p><span>Lãi suất vay tại đây rất hấp dẫn nên tôi  lựa chọn sản phẩm vay tại đây để giải quyết các nhu cầu chi tiêu cá nhân. Tôi hài lòng khi nhân viên luôn hỗ trợ kịp thời và nhanh chóng..</span></p>
+                            <h3>Clyde Williamson</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-1.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p><span>Là một lập trình viên, tôi bị ảnh hưởng ít nhiều bởi tính chất công việc khi lựa chọn dịch vụ từ công ty tài chính. Và công ty đã làm tôi tin tưởng bởi sự đảm bảo an toàn thông tin của khách hàng..</span></p>
+                            <h3>Vernon Ray</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-2.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+                    <div class="swiper-slide">
+                        <div class="testimonials-one__box">
+                            <p>
+                            <span>
+                                Khi trải nghiệm các dịch vụ tại đây, tôi bất ngờ và thật sự hài lòng vì sự tận tâm trong quá trình phục vụ khách hàng của nhân viên tại đây Và công ty đã làm tôi tin tưởng bởi sự đảm bảo an toàn thông tin của khách hàng.
+
+                            </span>
+                            </p>
+                            <h3>Gary Dawson</h3>
+                            <span class="testi_sname">Analytics</span>
+                        </div><!-- /.testimonials-one__box -->
+                        <div class="testimonials-one__box-info">
+                            <img src="../Layout/User/assets/images/resources/testimonials-1-3.png" alt="">
+                        </div><!-- /.testimonials-one__box-info -->
+                    </div><!-- /.swiper-slide -->
+
+                </div><!-- /.swiper-wrapper -->
+
+                <div class="testimonials-one__swiper-pagination swiper-pagination"></div><!-- /.testimonials-one__swiper-pagination swiper-pagination -->
+            </div><!-- /.thm-swiper__slider -->
+        </div><!-- /.container -->
+    </section><!-- /.testimonials-one -->
+
+    <section class="why-choose">
+        <img src="../Layout/User/assets/images/shapes/why-choose-shape-1-1.png" class="why-choose__shape-1" alt="">
+        <img src="../Layout/User/assets/images/shapes/why-choose-shape-1-2.png" class="why-choose__shape-2" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="why-choose__image">
+                        <p><i class="pylon-icon-investment"></i>26 năm kinh nghiệm trong ngành</p>
+                        <img src="../Layout/User/assets/images/resources/why-choose-1-1.png" alt="">
+                    </div><!-- /.why-choose__image -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="why-choose__content">
+                        <div class="block-title text-left">
+                            <p>Our Benfits</p>
+                            <h2>Vì sao nên chọn chúng tôi?</h2>
+                        </div><!-- /.block-title -->
+                        <p>Cung cấp dịch vụ cho vay tốt nhất dành cho bạn và nhân viên giàu kinh nghiệm của chúng tôi sẽ giúp bạn. Cần ít giấy tờ hơn và quy trình phê duyệt nhanh các hồ sơ. </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="why-choose__box">
+                                    <h3><i class="fa fa-caret-right"></i>Đội ngũ chuyên nghiệp</h3>
+                                    <p>Nhiều năm kinh nghiệm trong nghề, tỉ lệ thành công cao.</p>
+                                </div><!-- /.why-choose__box -->
+                            </div><!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                                <div class="why-choose__box">
+                                    <h3><i class="fa fa-caret-right"></i>Thanh toán nhanh chóng</h3>
+                                    <p>Nhận được tiền chỉ trong vòng 2 tiếng từ lúc hồ sơ được duyệt.</p>
+                                </div><!-- /.why-choose__box -->
+                            </div><!-- /.col-md-6 -->
+                        </div><!-- /.row -->
+                        <div class="why-choose__progress">
+                            <div class="why-choose__progress-top">
+                                <h3>Tỉ lệ thành công</h3>
+                                <span>90%</span>
+                            </div><!-- /.why-choose__progress-top -->
+                            <div class="why-choose__progress-bar">
+                                <span style="width: 90%" class="wow slideInLeft" data-wow-duration="1500ms"></span>
+                            </div><!-- /.why-choose__progress-bar -->
+                        </div><!-- /.why-choose__progress -->
+                        <div class="why-choose__progress">
+                            <div class="why-choose__progress-top">
+                                <h3>Tư vấn</h3>
+                                <span>80%</span>
+                            </div><!-- /.why-choose__progress-top -->
+                            <div class="why-choose__progress-bar">
+                                <span style="width:80%" class="wow slideInLeft" data-wow-duration="1500ms"></span>
+                            </div><!-- /.why-choose__progress-bar -->
+                        </div><!-- /.why-choose__progress -->
+                        <div class="why-choose__progress">
+                            <div class="why-choose__progress-top">
+                                <h3>
+                                    Quyền lợi thanh toán
+                                </h3>
+                                <span>85%</span>
+                            </div><!-- /.why-choose__progress-top -->
+                            <div class="why-choose__progress-bar">
+                                <span style="width: 85%" class="wow slideInLeft" data-wow-duration="1500ms"></span>
+                            </div><!-- /.why-choose__progress-bar -->
+                        </div><!-- /.why-choose__progress -->
+                    </div><!-- /.why-choose__content -->
+
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.why-choose -->
+
+    <section class="funfact-one">
+        <div class="funfact-one__bg" style="background-image: url(../Layout/User/assets/images/backgrounds/funfact-bg-1-1.jpg);"></div><!-- /.funfact-one__bg -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="funfact-one__box">
+                        <h3><span class="odometer" data-count="99">00</span>%</h3>
+                        <p>Tỉ lệ phê duyệt khoản vay</p>
+                    </div><!-- /.funfact-one__box -->
+                </div><!-- /.col-md-6 col-lg-3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="funfact-one__box">
+                        <h3>$<span class="odometer" data-count="90">00</span>K</h3>
+                        <p>Thanh khoản mỗi ngày</p>
+                    </div><!-- /.funfact-one__box -->
+                </div><!-- /.col-md-6 col-lg-3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="funfact-one__box">
+                        <h3><span class="odometer" data-count="8900">00</span></h3>
+                        <p>Số khách hàng hài lòng</p>
+                    </div><!-- /.funfact-one__box -->
+                </div><!-- /.col-md-6 col-lg-3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="funfact-one__box">
+                        <h3><span class="odometer" data-count="346">00</span></h3>
+                        <p>Số lượng nhân viên</p>
+                    </div><!-- /.funfact-one__box -->
+                </div><!-- /.col-md-6 col-lg-3 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.funfact-one -->
+
+    <section class="blog-home">
+        <div class="container">
+            <div class="block-title text-center">
+                <p>Directly From the Blog</p>
+                <h2 class="blog-title__h2">News & Articles</h2>
+            </div><!-- /.block-title -->
+            <div class="row">
+                <!--/*@thymesVar id="tintuc" type="com.nhom7.qltd.model.TinTuc"*/-->
+                <div th:each="tintuc : ${tintucs}" class="col-lg-4 wow fadeInUp" data-wow-duration="1500ms">
+                    <div class="blog-card">
+                        <div class="blog-card__image">
+                            <span th:text="${#temporals.format(tintuc.timeActive, 'dd-MM-yyyy')}"></span>
+                            <img th:src="@{${'/images/tintuc/' +tintuc.image1}}" style="max-width:400px; max-height:200px" alt="">
+                        </div><!-- /.blog-card__image -->
+                        <div class="blog-card__content">
+                            <div class="blog-card__meta">
+                                <a href="#" th:text="${tintuc.user.name}"><i class="far fa-user"></i></a>
+                                <a th:text="${tintuc.category.name}"><i class="far fa-credit-card"></i></a>
+                            </div><!-- /.blog-card__meta -->
+                            <h3><a th:href="@{/tintuc/detail/{id}(id= ${tintuc.id} )}" th:text="${tintuc.title}"></a></h3>
+                            <div class="blog-card__bottom">
+                                <div class="blog-card-bottom-readmore">
+                                    <a th:href="@{/tintuc/detail/{id}(id= ${tintuc.id} )}"><i class="pylon-icon-right-arrow"></i>Chi tiết</a>
+                                </div><!-- /.blog-card-bottom-readmore-->
+                                <span class="blog_comment">
+                        <a href="#"><i class="far fa-comments"></i>0 Comments</a>
+                    </span>
+                            </div><!-- /.blog-card__bottom -->
+                        </div><!-- /.blog-card__content -->
+                    </div><!-- /.blog-card -->
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.blog-home -->
+
+    <div class="client-carousel pt-90 pb-90 client-carousel__has-border-top">
+        <div class="container">
+            <div class="thm-swiper__slider swiper-container" data-swiper-options='{"spaceBetween": 100, "slidesPerView": 5, "autoplay": { "delay": 5000 }, "breakpoints": {
+                "0": {
+                    "spaceBetween": 30,
+                    "slidesPerView": 2
+                },
+                "375": {
+                    "spaceBetween": 30,
+                    "slidesPerView": 2
+                },
+                "575": {
+                    "spaceBetween": 30,
+                    "slidesPerView": 3
+                },
+                "767": {
+                    "spaceBetween": 50,
+                    "slidesPerView": 4
+                },
+                "991": {
+                    "spaceBetween": 50,
+                    "slidesPerView": 5
+                },
+                "1199": {
+                    "spaceBetween": 100,
+                    "slidesPerView": 5
+                }
+            }}'>
+
+            </div><!-- /.thm-swiper__slider -->
+        </div><!-- /.container -->
+    </div><!-- /.client-carousel -->
+
+
+</div>
+</body>
+</html>

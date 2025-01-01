@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutadmin2}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2>Danh Sách Thẻ Tín Dụng</h2>
+    <h3 ><a th:href="@{/admin/card/add}"> Thêm thẻ tín dụng </a></h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Thẻ</th>
+                <th>Mô Tả</th>
+                <th>Mô tả 2</th>
+                <th>Mô tả 3</th>
+                <th>Mô tả 4</th>
+                <th>Mô tả 5</th>
+                <th>Mô tả 6</th>
+                <th>Hình Ảnh</th>
+                <th>Thao Tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="goivay" type="com.nhom7.qltd.model.GoiVay"*/-->
+            <tr th:each="card : ${cards}">
+                <td th:text="${card.maThe}"></td>
+                <td th:text="${card.tenThe}"></td>
+                <td th:text="${card.moTa1}"></td>
+                <td th:text="${card.moTa2}"></td>
+                <td th:text="${card.moTa3}"></td>
+                <td th:text="${card.moTa4}"></td>
+                <td th:text="${card.moTa5}"></td>
+                <td th:text="${card.moTa6}"></td>
+
+                <td>
+                    <img th:src="@{${'/images/Thetindung/'+card.image }}"  style="max-width: 100px" alt="">
+                </td>
+                <td>
+                    <a th:href="@{/admin/card/edit/{id}(id=${card.maThe})}" class="btn btn-primary">Sửa</a>
+                    <a th:href="@{/admin/card/delete/{id}(id=${card.maThe})}" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

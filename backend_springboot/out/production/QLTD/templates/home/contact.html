@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li>/</li>
+                <li><span>Contact Us</span></li>
+            </ul><!-- /.thm-breadcrumb list-unstyled -->
+            <h2>Contact Us</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+    <section class="contact-one">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="contact-one__content">
+                        <div class="block-title">
+                            <p class="small-title">Get in touch with us</p>
+                            <h2 class="title-block">Đặt câu hỏi cho chúng tôi</h2>
+                        </div>
+                        <div class="contact-one__box">
+                            <i class="pylon-icon-telephone"></i>
+                            <div class="contact-one__box-content">
+                                <h4>Điện thoại</h4>
+                                <a href="tel:+849999999">+849999999</a>
+                            </div><!-- /.contact-one__box-content -->
+                        </div><!-- /.contact-one__box -->
+                        <div class="contact-one__box">
+                            <i class="pylon-icon-email1"></i>
+                            <div class="contact-one__box-content">
+                                <h4>Email</h4>
+                                <a href="mailto:needhelp@company.com">needhelp@company.com</a>
+                            </div><!-- /.contact-one__box-content -->
+                        </div><!-- /.contact-one__box -->
+                        <div class="contact-one__box">
+                            <i class="pylon-icon-pin1"></i>
+                            <div class="contact-one__box-content">
+                                <h4>Địa chỉ</h4>
+                                <a href="#">VQ4P+249, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh</a>
+                            </div><!-- /.contact-one__box-content -->
+                        </div><!-- /.contact-one__box -->
+                    </div><!-- /.contact-one__content -->
+                </div><!-- /.col-lg-5 -->
+                <div class="col-lg-7">
+                    <!--/*@thymesVar id="contact" type="com.nhom7.qltd.model.Contact"*/-->
+                    <form th:action="@{/contact}" th:object="${contact}" method="post" class="contact-one__form">
+                        <div class="row low-gutters">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Tên" class="form-control contact-one__form-input" th:field="${contact.name}" name="name" required>
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                     th:errors="*{name}"></div>
+                            </div><!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" placeholder="Email" th:field="${contact.email}" class="form-control contact-one__form-input" name="Email" required>
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('email')}"
+                                     th:errors="*{email}"></div>
+                            </div><!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Số điện thoại" th:field="${contact.phone}" class="form-control contact-one__form-input" name="PhoneNumber">
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('phone')}"
+                                     th:errors="*{phone}"></div>
+                            </div><!-- /.col-md-6 -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Công việc" th:field="${contact.job}" class="form-control contact-one__form-input" name="Job">
+
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('job')}"
+                                     th:errors="*{job}"></div>
+                            </div><!-- /.col-md-6 -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="Message" placeholder="Lời nhắn" th:field="${contact.message}" class="contact-one__form-input"></textarea>
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('message')}"
+                                     th:errors="*{message}"></div>
+                                <button class="thm-btn" type="submit">Gửi lời nhắn</button>
+                            </div><!-- /.col-md-6 -->
+                        </div><!-- /.row -->
+                    </form><!-- /.contact-one__from -->
+                </div><!-- /.col-lg-7 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.contact-one -->
+    <div class="google-map__home-two">
+        <iframe title="template google map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.2095112624788!2d106.78144214815683!3d10.855699953573424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276e7ea103df%3A0xb6cf10bb7d719327!2zSFVURUNIIC0gxJDhuqFpIGjhu41jIEPDtG5nIG5naOG7hyBUUC5IQ00gKFRodSBEdWMgQ2FtcHVzKQ!5e0!3m2!1svi!2s!4v1717913452887!5m2!1svi!2s" class="map__home-two" allowfullscreen></iframe>
+    </div><!-- /.google-map -->
+</section>
+</body>
+</html>

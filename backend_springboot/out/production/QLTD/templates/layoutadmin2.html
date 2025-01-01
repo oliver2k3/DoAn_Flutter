@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Admo is a clean and powerful ready to use responsive AngularJs Admin Template based on Latest Bootstrap version and powered by jQuery, Admo comes with 3 amazing Dashboard layouts. Admo is completely flexible and user friendly admin template as it supports all the browsers and looks awesome on any device.">
+    <meta name="keywords" content="admin, admin dashboard, angular admin, bootstrap admin, dashboard, modern admin, responsive admin, web admin, web app, Admo">
+    <meta name="author" content="Admo">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{../Layout/Admin/css/bootstrap.min.css}">
+
+    <!-- Our Website CSS Styles -->
+    <link rel="stylesheet"  th:href="@{../Layout/Admin/css/icons.css}">
+    <link rel="stylesheet"  th:href="@{../Layout/Admin/css/main.css}">
+    <link rel="stylesheet"  th:href="@{../Layout/Admin/css/responsive.css}">
+</head>
+<body>
+<div class="se-pre-con"></div>
+<!-- Our Website Content Goes Here -->
+<header class="simple-normal">
+    <div class="top-bar">
+        <div class="logo"> <a href="index.html" title=""><img src="images/main-logo.png" alt=""> Admo</a> </div>
+        <div class="menu-options"><span class="menu-action"><i></i></span></div>
+        <div class="search-dashboard">
+            <div class="responsive-search"> <i class="fa fa-search"></i> </div>
+            <form>
+                <input type="text" placeholder="Search here" />
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <!-- Search Dashboard -->
+        <div class="top-bar-quick-sec">
+
+            <div class="name-area"> <a href="#" title=""><strong sec:authentication="name"></strong> <img src="images/resource/admin.jpg" alt="" /></a>
+                <ul>
+                    <li class="profile-status"><span>Profile Completion 70%</span></li>
+                    <li><a href="#" title=""><i class="fa fa-dollar"></i> My Balance</a></li>
+                    <li><a href="#" title=""><i class="fa fa-inbox"></i> Inbox</a></li>
+                    <li><a href="#" title=""><i class="fa fa-gear"></i> Setting</a></li>
+                    <li><a href="#" title=""><i class="ti-check"></i> Available</a>
+                        <ul>
+                            <li><a href="#" title="">Available</a></li>
+                            <li><a href="#" title="">Invisible</a></li>
+                            <li><a href="#" title="">Away</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" title=""><i class="ti-power-off"></i> logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Top Bar -->
+    <div class="side-menu-sec" id="header-scroll">
+
+        <div class="side-menus"> <span>MAIN LINKS</span>
+            <nav>
+                <ul class="parent-menu">
+                    <li class="menu-item-has-children active"> <a title=""><i class="ti-desktop"></i><span>Hợp đồng vay <i class="badge red-bg"></i></span></a>
+                        <ul class="" style="display:block">
+                            <li><a href="/admin/hopdongvay" title="">Toàn bộ hợp đồng vay</a></li>
+                            <li><a href="/admin/hopdongvay1" title="">Hợp đồng  chưa xác nhận</a></li>
+                            <li><a href="/admin/hopdongvay2">Hợp đồng chưa thanh toán</a></li>
+                            <li><a href="/admin/hopdongvay3">Hợp đồng đã từ chối</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children active"> <a title=""><i class="ti-desktop"></i><span>Hợp đồng mở thẻ <i class="badge red-bg"></i></span></a>
+                        <ul class="" style="display:block">
+                            <li><a href="/admin/hopdongmothe" title="">Toàn bộ hợp đồng mở thẻ</a></li>
+                            <li><a href="/admin/hopdongmothe1" title="">Hợp đồng  chưa xác nhận</a></li>
+                            <li><a href="/admin/hopdongmothe2">Hợp đồng chưa thanh toán</a></li>
+                            <li><a href="/admin/hopdongmothe3">Hợp đồng đã từ chối</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children active"> <a title=""><i class="ti-desktop"></i><span>Gói vay <i class="badge red-bg"></i></span></a>
+                        <ul class="" style="display:block">
+                            <li><a href="/admin/goivay" title="">Toàn bộ gói vay</a></li>
+                            <li><a href="/admin/goivay/add" title="">Thêm gói vay</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children active"> <a title=""><i class="ti-desktop"></i><span>Thẻ tín dụng <i class="badge red-bg"></i></span></a>
+                        <ul class="" style="display:block">
+                            <li><a href="/admin/card" title="">Toàn bộ thẻ</a></li>
+                            <li><a href="/admin/card/add" title="">Thêm thẻ</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children active"> <a title=""><i class="ti-desktop"></i><span>Tin tức <i class="badge red-bg"></i></span></a>
+                        <ul class="" style="display:block">
+                            <li><a href="/admin/tintuc" title="">Toàn bộ tin tưcs</a></li>
+                            <li><a href="/admin/tintuc/add" title="">Thêm tin tức</a></li>
+                            <li><a href="/admin/tintuc2" title="">Tin tức chưa duyệt</a></li>
+                            <li><a href="/admin/tintuc3" title="">Tin tức đang họạt động</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children active"> <a title=""><i class="ti-desktop"></i><span>Quản lí người dùng<i class="badge red-bg"></i></span></a>
+                        <ul class="" style="display:block">
+                            <li><a href="/admin/user" title="">Toàn bộ người dùng</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children"> <a title=""><i class="ti-email"></i><span>Mail Box <i class="badge blue-bg">2 Unread</i></span></a>
+                        <ul>
+                            <li><a href="/admin/contact">Inbox</a></li>
+                            <li><a href="compose.html">Compose Email</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </nav>
+            <span class="footer-line">2020 &copy; Admo All Rights Reseved</span> </div>
+    </div>
+</header>
+
+<!-- Slide Panel -->
+<div class="main-content"  layout:fragment="content">
+
+</div>
+
+<!-- Vendor: Javascripts -->
+<script th:src="@{../Layout/Admin/js/jquery-2.1.3.js}"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+<!-- Our Website Javascripts -->
+<script th:src="@{../Layout/Admin/js/app.js}"></script>
+<script th:src="@{../Layout/Admin/js/common.js}"></script>
+<script th:src="@{../Layout/Admin/js/home4.js}"></script>
+<script th:src="@{../Layout/Admin/js/widgets.js}"></script>
+</body>
+</html>

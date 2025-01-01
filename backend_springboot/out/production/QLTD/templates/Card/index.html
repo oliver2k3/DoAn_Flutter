@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(../Layout/User/assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li>/</li>
+                <li><span>Credit Card</span></li>
+            </ul><!-- /.thm-breadcrumb list-unstyled -->
+            <h2>Credit Card</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+    <section class="credit-card">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6" th:each="card : ${cards}">
+                    <div class="credit-card__box">
+                        <div class="credit-card__box-image">
+                            <img th:src="@{${'/images/Thetindung/'+card.image }} " alt="">
+                        </div><!-- /.credit-card__box-image -->
+                        <div class="credit-card__content">
+                            <h3><a th:href="@{/goivay/detail/{id}(id=${card.maThe})}" th:text="${card.tenThe}"></a>
+
+                            </h3>
+                            <p th:text="${card.moTa1}"></p>
+                            <a th:href="@{/card/detail/{id}(id=${card.maThe})}" class="credit-card__link"><i class="pylon-icon-right-arrow"></i></a><!-- /.credit-card__link -->
+                        </div><!-- /.credit-card__content -->
+                    </div><!-- /.credit-card__box -->
+                </div>
+
+
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.credit-card -->
+
+
+</section>
+</body>
+</html>

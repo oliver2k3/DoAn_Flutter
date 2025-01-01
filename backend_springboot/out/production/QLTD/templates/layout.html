@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home One || Pylon || Loan HTML Template</title>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{Layout/User/assets/images/favicons/apple-touch-icon.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{Layout/User/assets/images/favicons/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{Layout/User/assets/images/favicons/favicon-16x16.png}">
+    <meta name="description" content="Pylon Loan HTML Template">
+
+    <!-- fonts -->
+
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/swiper.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/pylon-icons.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/odometer.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/nouislider.min.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/nouislider.pips.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{Layout/User/assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{Layout/User/assets/css/main.css}">
+</head>
+
+<body>
+
+<div class="preloader">
+    <img class="preloader__image" th:src="@{Layout/User/assets/images/loader.png}" alt="">
+</div><!-- /.preloader -->
+<div class="page-wrapper">
+    <header class="main-header">
+        <div class="topbar">
+            <div class="container">
+                <div class="topbar__left">
+                    <div class="topbar__social">
+                        <a href="#" class="fab fa-facebook-square"></a>
+                        <a href="#" class="fab fa-twitter"></a>
+                        <a href="#" class="fab fa-pinterest-p"></a>
+                        <a href="#" class="fab fa-instagram"></a>
+                    </div><!-- /.topbar__social -->
+                    <a href="#">Login</a>
+                    <a href="news.html">Company News</a>
+                    <a href="faq.html">FAQs</a>
+                </div><!-- /.topbar__left -->
+                <div class="topbar__right">
+                    <a href="#"><i class="pylon-icon-email1"></i>needhelp@company.com</a>
+                    <a href="#"><i class="pylon-icon-clock2"></i>Mon - Sat 8:00 AM - 6:00 PM</a>
+                </div><!-- /.topbar__right -->
+            </div><!-- /.container -->
+        </div><!-- /.topbar -->
+        <nav class="main-menu">
+            <div class="container">
+                <div class="logo-box">
+                    <a href="/"><img th:src="@{Layout/User/assets/images/logo-dark.png}" width="155" alt=""></a>
+                    <span class="fa fa-bars mobile-nav__toggler"></span>
+                </div><!-- /.logo-box -->
+                <ul class="main-menu__list">
+                    <li class="dropdown">
+                        <a href="/">Trang Chủ</a>
+
+                    </li>
+                    <li class="dropdown">
+                        <a  th:href="@{/about}">Giới Thiệu</a>
+                        <ul>
+                            <li><a th:href="@{/about}">Tổng quan</a></li>
+                            <li><a asp-action="Team" asp-controller="about">Nhân sự</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a asp-action="Index" asp asp-controller="GoiVay">Dịch Vụ</a>
+                        <ul>
+                            <li><a href="/goivay">Gói Vay</a></li>
+                            <li><a th:href="@{/card}">Thẻ Tín Dụng</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a th:href="@{/tintuc}">Tin Tức</a>
+
+                    </li>
+
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/user/profile}">Tài Khoản</a>
+                        <ul>
+                            <li><a th:href="@{/user/hopdongvay}">Hợp đồng vay</a></li>
+                            <li><a th:href="@{/user/hopdongmothe}">Hợp đồng mở thẻ</a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li><a th:href="@{/contact}">Liên Hệ</a></li>
+
+                    <li class="drop-down" sec:authorize="!isAuthenticated()">
+                        <a  href="/login">Login</a>
+                    </li>
+
+
+
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                           <a>  <input type="submit" value="Đăng xuất"> </a>
+                        </form>
+                    </li>
+
+                </ul>
+                <!-- /.main-menu__list -->
+
+
+            </div><!-- /.container -->
+        </nav>
+        <!-- /.main-menu -->
+    </header><!-- /.main-header -->
+
+        <div class="container mt-5" layout:fragment="content">
+            <!-- Nội dung cụ thể của từng trang sẽ được đặt tại đây -->
+        </div>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget footer-widget__about">
+                        <a href="index.html">
+                            <img th:src="@{Layout/User/assets/images/logo-light.png}" width="155" alt="">
+                        </a>
+                        <p>
+                            Chào mừng bạn đến với công ty pylon loand chúng tôi đang cung cấp khoản vay như lãi suất rất hợp lý và bạn cũng có thể đăng kí thẻ tín dụng của chúng tôi.
+
+
+                        </p>
+                        <div class="footer-widget__about-phone">
+                            <i class="pylon-icon-tech-support"></i>
+                            <div class="footer-widget__about-phone-content">
+                                <span>Call Anytime</span>
+                                <h3><a href="tel:+849999999">+849999999</a></h3>
+                            </div><!-- /.footer-widget__about-phone-content -->
+                        </div><!-- /.footer-widget__about-phone -->
+                    </div><!-- /.footer-widget footer-widget__about -->
+                </div><!-- /.col-lg-3 -->
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-widget footer-widget__link">
+                        <h3 class="footer-widget__title">Explore</h3>
+                        <ul class="list-unstyled footer-widget__link-list">
+                            <li><a href="/about"><i class="fa fa-arrow-right"></i>Giới thiệu</a></li>
+                            <li><a href="/goivay" ><i class="fa fa-arrow-right"></i>Dịch vụ </a></li>
+                            <li><a  href="/tintuc"><i class="fa fa-arrow-right"></i>Tin tức</a></li>
+                            <li><a href="/contact"><i class="fa fa-arrow-right"></i>Liên hệ</a></li>
+
+                        </ul><!-- /.list-unstyled -->
+                    </div><!-- /.footer-widget -->
+                </div><!-- /.col-lg-2 -->
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget footer-widget__post">
+                        <h3 class="footer-widget__title">Tin tức mới nhất</h3>
+
+                        <!-- /.list-unstyled -->
+                    </div><!-- /.footer-widget -->
+                </div><!-- /.col-lg-3 -->
+                <div class="col-lg-4 col-sm-6">
+                    <div class="footer-widget footer-widget__contact">
+                        <h3>Liên hệ</h3>
+                        <ul class="list-unstyled footer-widget__contact-list">
+                            <li>
+                                <a href="mailto:needhelp@company.com"><i class="pylon-icon-email1"></i>needhelp@company.com</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="pylon-icon-clock2"></i>Thứ 2 - Thứ 7 8:00 AM - 6:00 PM</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="pylon-icon-pin1"></i> VQ4P+249, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh
+
+                                </a>
+                            </li>
+                        </ul>
+                    </div><!-- /.footer-widget footer-widget__contact -->
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </footer><!-- /.site-footer -->
+    <div class="bottom-footer">
+        <div class="container">
+            <p>© Copyright 2021 by Company.com</p>
+            <div class="bottom-footer__social">
+                <a href="#" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-pinterest-p"></a>
+                <a href="#" class="fab fa-instagram"></a>
+            </div><!-- /.bottom-footer__social -->
+        </div><!-- /.container -->
+    </div><!-- /.bottom-footer -->
+
+</div><!-- /.page-wrapper -->
+
+
+<div class="mobile-nav__wrapper">
+    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <!-- /.mobile-nav__overlay -->
+    <div class="mobile-nav__content">
+        <span class="mobile-nav__close mobile-nav__toggler"></span>
+        <div class="logo-box">
+            <a href="index.html" aria-label="logo image"><img th:src="@{Layout/User/assets/images/logo-light.png}" width="155" alt="" /></a>
+
+        </div>
+        <!-- /.logo-box -->
+        <div class="mobile-nav__container"></div>
+        <!-- /.mobile-nav__container -->
+
+        <ul class="mobile-nav__contact list-unstyled">
+            <li>
+                <i class="pylon-icon-email1"></i>
+                <a href="mailto:needhelp@azino.com">needhelp@pylon.com</a>
+            </li>
+            <li>
+                <i class="pylon-icon-telephone"></i>
+                <a href="tel:+19812310000">(+1) 9812310000</a>
+            </li>
+        </ul><!-- /.mobile-nav__contact -->
+        <div class="mobile-nav__top">
+            <div class="mobile-nav__social">
+                <a href="#" aria-label="twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="facebook"><i class="fab fa-facebook-square"></i></a>
+                <a href="#" aria-label="pinterest"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+            </div><!-- /.mobile-nav__social -->
+        </div><!-- /.mobile-nav__top -->
+
+
+
+    </div>
+    <!-- /.mobile-nav__content -->
+</div>
+<!-- /.mobile-nav__wrapper -->
+
+<div class="search-popup">
+    <div class="search-popup__overlay search-toggler"></div>
+    <!-- /.search-popup__overlay -->
+    <div class="search-popup__content">
+        <form action="#">
+            <label for="search" class="sr-only">search here</label><!-- /.sr-only -->
+            <input type="text" id="search" placeholder="Search Here..." />
+            <button type="submit" aria-label="search submit" class="thm-btn">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+    <!-- /.search-popup__content -->
+</div>
+<!-- /.search-popup -->
+
+<a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+<script th:src="@{Layout/User/assets/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/swiper.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/jquery.ajaxchimp.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/jquery.validate.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/bootstrap-select.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/wow.js}"></script>
+<script th:src="@{Layout/User/assets/js/odometer.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/jquery.appear.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/wNumb.min.js}"></script>
+<script th:src="@{Layout/User/assets/js/nouislider.min.js}"></script>
+
+<!-- template js -->
+<script th:src="@{Layout/User/assets/js/theme1.js}"></script>
+</body>
+
+
+
+</html>

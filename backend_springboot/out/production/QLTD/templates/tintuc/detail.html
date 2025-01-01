@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutdetail}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script src="https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js" defer init></script>
+    <script type="text/javascript">
+        window.tailwind.config = {
+            darkMode: ['class'],
+            theme: {
+                extend: {
+                    colors: {
+                        border: 'hsl(var(--border))',
+                        input: 'hsl(var(--input))',
+                        ring: 'hsl(var(--ring))',
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        primary: {
+                            DEFAULT: 'hsl(var(--primary))',
+                            foreground: 'hsl(var(--primary-foreground))'
+                        },
+                        secondary: {
+                            DEFAULT: 'hsl(var(--secondary))',
+                            foreground: 'hsl(var(--secondary-foreground))'
+                        },
+                        destructive: {
+                            DEFAULT: 'hsl(var(--destructive))',
+                            foreground: 'hsl(var(--destructive-foreground))'
+                        },
+                        muted: {
+                            DEFAULT: 'hsl(var(--muted))',
+                            foreground: 'hsl(var(--muted-foreground))'
+                        },
+                        accent: {
+                            DEFAULT: 'hsl(var(--accent))',
+                            foreground: 'hsl(var(--accent-foreground))'
+                        },
+                        popover: {
+                            DEFAULT: 'hsl(var(--popover))',
+                            foreground: 'hsl(var(--popover-foreground))'
+                        },
+                        card: {
+                            DEFAULT: 'hsl(var(--card))',
+                            foreground: 'hsl(var(--card-foreground))'
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            :root {
+                --background: 0 0% 100%;
+                --foreground: 240 10% 3.9%;
+                --card: 0 0% 100%;
+                --card-foreground: 240 10% 3.9%;
+                --popover: 0 0% 100%;
+                --popover-foreground: 240 10% 3.9%;
+                --primary: 240 5.9% 10%;
+                --primary-foreground: 0 0% 98%;
+                --secondary: 240 4.8% 95.9%;
+                --secondary-foreground: 240 5.9% 10%;
+                --muted: 240 4.8% 95.9%;
+                --muted-foreground: 240 3.8% 46.1%;
+                --accent: 240 4.8% 95.9%;
+                --accent-foreground: 240 5.9% 10%;
+                --destructive: 0 84.2% 60.2%;
+                --destructive-foreground: 0 0% 98%;
+                --border: 240 5.9% 90%;
+                --input: 240 5.9% 90%;
+                --ring: 240 5.9% 10%;
+                --radius: 0.5rem;
+            }
+            .dark {
+                --background: 240 10% 3.9%;
+                --foreground: 0 0% 98%;
+                --card: 240 10% 3.9%;
+                --card-foreground: 0 0% 98%;
+                --popover: 240 10% 3.9%;
+                --popover-foreground: 0 0% 98%;
+                --primary: 0 0% 98%;
+                --primary-foreground: 240 5.9% 10%;
+                --secondary: 240 3.7% 15.9%;
+                --secondary-foreground: 0 0% 98%;
+                --muted: 240 3.7% 15.9%;
+                --muted-foreground: 240 5% 64.9%;
+                --accent: 240 3.7% 15.9%;
+                --accent-foreground: 0 0% 98%;
+                --destructive: 0 62.8% 30.6%;
+                --destructive-foreground: 0 0% 98%;
+                --border: 240 3.7% 15.9%;
+                --input: 240 3.7% 15.9%;
+                --ring: 240 4.9% 83.9%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section layout:fragment="content" class="blog-details pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8" >
+                <h1  class="text-lg font-semibold mb-4" th:text="${post.title}"></h1>
+                <div class="blog-card__image">
+
+                    <span th:text="${#temporals.format(post.timeActive, 'dd-MM-yyyy')}"></span>
+                    <img th:src="@{${'/images/tintuc/' + post.image1}}" alt="">
+                </div><!-- /.blog-card__image -->
+                <div class="blog-card__meta">
+                    <a href="#"><i class="far fa-folder"></i>Investment</a>
+                    <a href="#"><i class="far fa-comments"></i>Comment</a>
+                    <a href="#"><i class="far fa-user"></i>Admin</a>
+                </div><!-- /.blog-card__meta -->
+                <div class="blog-details__content">
+
+                    <p th:text="${post.paragraph1}"></p>
+                    <p th:text="${post.paragraph2}"></p>
+
+                    <div class="blog-card__image-box">
+                        <div class="row">
+                            <div class="col-6">
+                                <img th:src="@{${'/images/tintuc/' + post.image2}}" style="max-width: 400px" alt="">
+                            </div><!--/.col-6-->
+                            <div class="col-6">
+                                <img th:src="@{${'/images/tintuc/' + post.image3}}" style="max-width: 400px" alt="">
+                            </div><!--/.col-6-->
+                        </div><!--/.row-->
+                    </div><!--/.blog-card__image-box-->
+
+                    <p th:text="${post.paragraph3}"></p>
+                    <p th:text="${post.paragraph4}"></p>
+                </div><!-- /.blog-details__content -->
+
+                <div class="blog-details__bottom">
+                    <div class="blog-details__tags">
+                        <span>
+                            <a href="#">Company</a>
+                            <a href="#">House Loan</a>
+                            <a href="#">IT Loan</a>
+                        </span>
+                    </div><!-- /.blog-details__tags -->
+                    <div class="blog-details__social team-details__social">
+                        <a href="#" class="fab fa-facebook-f"></a>
+                        <a href="#" class="fab fa-twitter"></a>
+                        <a href="#" class="fab fa-linkedin-in"></a>
+                    </div><!-- /.blog-details__social -->
+                </div><!-- /.blog-details__bottom -->
+                <div class="blog-comment-form">
+                    <h2 class="blog-details__box-title">Leave A Reply</h2>
+                    <form th:action="@{/tintuc/comment/{id}(id= ${post.id})}"  method="post" class="contact-one__form">
+                        <p>Your email address will not be published. </p>
+                        <div class="row low-gutters">
+
+
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="MessageContent" id="MessageContent" class="form-control contact-one__form-input" placeholder="Your Comment*"></textarea>
+                                </div>
+                            </div><!-- /.col-md-6 -->
+                        </div><!-- /.row -->
+                        <button class="thm-btn" type="submit">Post Comment</button>
+                    </form>
+                    <div class="col-lg-6 reviews_col">
+
+                    </div>
+
+                </div><!-- /.blog-comment -->
+<section>
+    <div class="mt-8">
+        <div class="bg-card text-card-foreground p-4 rounded-lg shadow-lg">
+            <h1 class="text-lg font-semibold mb-4">Comments</h1>
+            <div class="mb-4" th:each=" comment : ${comments}">
+                <div class="flex items-center mb-2">
+                    <div>
+                        <h3 class="text-sm font-medium" th:text="${comment.user.name}"></h3>
+                        <p class="text-xs text-muted" th:text="${#temporals.format(comment.timeUpload, 'dd-MM-yyyy')}"></p>
+                    </div>
+                </div>
+                <p class="text-sm" th:text="${comment.content}"></p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+            </div><!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <div class="blog-sidebar">
+                    <div class="blog-sidebar__box blog-sidebar__search">
+                        <form class="search-form">
+                            <input type="text" placeholder="Search" class="search-field">
+                            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div><!-- /.blog-sidebar__box -->
+                    <div class="blog-sidebar__box blog-sidebar__categories">
+                        <h3 class="blog-sidebar__box-title">Danh mục</h3>
+                        <ul class="list-unstyled">
+                            <li th:each="category: ${categories}">
+                                <a th:href="@{/tintuc/(categoryId=${category.id})}"><i class="far fa-arrow-right"></i><span th:text="${category.name}"></span></a>
+                                (1)
+                            </li>
+
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="blog-sidebar__box blog-sidebar__post">
+                        <h3 class="blog-sidebar__box-title">Recent Posts</h3><!-- /.blog-sidebar__title -->
+                        <ul class="list-unstyled footer-widget__post-list">
+
+                            <li th:each="tintuc : ${news}">
+                                <img th:src="@{${'/images/tintuc/'+tintuc.image1}}" style="max-height:71px" alt="">
+                                <div class="footer-widget__post-list-content">
+                                    <span th:text="${#temporals.format(tintuc.timeActive, 'dd-MM-yyyy')}"></span>
+                                    <h3> <a th:href="@{/tintuc/detail/{id}(id= ${tintuc.id} )}" th:text="${tintuc.title}"><i class="pylon-icon-right-arrow"></i><th:block > </th:block></a></h3>
+                                </div><!-- /.footer-widget__post-content -->
+                            </li>
+
+
+                        </ul>
+
+                    </div><!-- /.blog-sidebar__box -->
+
+
+                    <div class="blog-sidebar__box blog-sidebar__call">
+                        <div class="service-sidebar__call">
+                            <div class="service-sidebar__call-bg" style="background-image: url(Layout/User/assets/images/services/service-sidebar-1-1.jpg);"></div><!-- /.service-sidebar__call-bg -->
+                            <i class="pylon-icon-tech-support"></i>
+                            <h3><a href="tel:(+01)123 456 7890">0812999999</a></h3>
+                            <div class="pylon-mail">
+                                <a href="mailto:info@company.com">info@company.com</a>
+                            </div>
+                            <p>We are here to help our customer any time. You can call on 24/7 To Answer Your Question.</p>
+                        </div>
+                    </div><!-- /.service-sidebar__call -->
+
+                </div><!-- /.blog-sidebar -->
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.blog-details -->
+
+</body>
+</html>

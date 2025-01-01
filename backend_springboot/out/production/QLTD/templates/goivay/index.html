@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(../Layout/User/assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li>/</li>
+                <li><span>Service</span></li>
+            </ul><!-- /.thm-breadcrumb list-unstyled -->
+            <h2>Danh sách gói vay</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+    <section class="service-page pt-100 pb-60">
+        <div class="container">
+            <div class="row">
+
+                <div th:each="goivay :${goivays}" class="col-lg-4 col-md-6 mb-40">
+                    <div class="service-one__card">
+                        <div class="service-one__image">
+                            <a asp-controller="GoiVay" asp-action="Details" asp-route-id="@item.Id">
+                                <div class="post-thumbnail">
+                                    <img th:src="@{${'/images/goivay/'+goivay.image }} " alt="">
+                                </div>
+                            </a>
+                        </div><!-- /.service-one__image -->
+                        <div class="service-one__content">
+                            <a th:href="@{/goivay/detail/{id}(id=${goivay.maGoiVay})}">
+                                <div class="service-icon">
+                                    <i class="flaticon-online-money"></i>
+                                </div>
+                            </a>
+                            <h3><a th:href="@{/goivay/detail/{id}(id=${goivay.maGoiVay})}" th:text="${goivay.tenGoiVay}"></a></h3>
+                            <p th:text="${goivay.moTa1}"></p>
+                            <a th:href="@{/goivay/detail/{id}(id=${goivay.maGoiVay})}" class="pylon-icon-right-arrow service-one__link"></a><!-- /.service-one__link -->
+                        </div><!-- /.service-one__content -->
+                    </div><!-- /.service-one__card -->
+                </div><!-- /.col-lg-4 col-md-6 mb-40 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.service-page -->
+
+    </section>
+</body>
+</html>

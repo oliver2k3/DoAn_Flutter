@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layoutdetail}">
+>
+<script th:src="@{https://cdn.tailwindcss.com?plugins=forms,typography}"></script>
+<script th:src="@{https://unpkg.com/unlazy@0.11.3/dist/unlazy.with-hashing.iife.js}" defer init></script>
+<script type="text/javascript">
+    window.tailwind.config = {
+        darkMode: ['class'],
+        theme: {
+            extend: {
+                colors: {
+                    border: 'hsl(var(--border))',
+                    input: 'hsl(var(--input))',
+                    ring: 'hsl(var(--ring))',
+                    background: 'hsl(var(--background))',
+                    foreground: 'hsl(var(--foreground))',
+                    primary: {
+                        DEFAULT: 'hsl(var(--primary))',
+                        foreground: 'hsl(var(--primary-foreground))'
+                    },
+                    secondary: {
+                        DEFAULT: 'hsl(var(--secondary))',
+                        foreground: 'hsl(var(--secondary-foreground))'
+                    },
+                    destructive: {
+                        DEFAULT: 'hsl(var(--destructive))',
+                        foreground: 'hsl(var(--destructive-foreground))'
+                    },
+                    muted: {
+                        DEFAULT: 'hsl(var(--muted))',
+                        foreground: 'hsl(var(--muted-foreground))'
+                    },
+                    accent: {
+                        DEFAULT: 'hsl(var(--accent))',
+                        foreground: 'hsl(var(--accent-foreground))'
+                    },
+                    popover: {
+                        DEFAULT: 'hsl(var(--popover))',
+                        foreground: 'hsl(var(--popover-foreground))'
+                    },
+                    card: {
+                        DEFAULT: 'hsl(var(--card))',
+                        foreground: 'hsl(var(--card-foreground))'
+                    },
+                },
+            }
+        }
+    }
+</script>
+<style type="text/tailwindcss">
+    @layer base {
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 240 10% 3.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 240 10% 3.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 240 10% 3.9%;
+            --primary: 240 5.9% 10%;
+            --primary-foreground: 0 0% 98%;
+            --secondary: 240 4.8% 95.9%;
+            --secondary-foreground: 240 5.9% 10%;
+            --muted: 240 4.8% 95.9%;
+            --muted-foreground: 240 3.8% 46.1%;
+            --accent: 240 4.8% 95.9%;
+            --accent-foreground: 240 5.9% 10%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 240 5.9% 90%;
+            --input: 240 5.9% 90%;
+            --ring: 240 5.9% 10%;
+            --radius: 0.5rem;
+        }
+        .dark {
+            --background: 240 10% 3.9%;
+            --foreground: 0 0% 98%;
+            --card: 240 10% 3.9%;
+            --card-foreground: 0 0% 98%;
+            --popover: 240 10% 3.9%;
+            --popover-foreground: 0 0% 98%;
+            --primary: 0 0% 98%;
+            --primary-foreground: 240 5.9% 10%;
+            --secondary: 240 3.7% 15.9%;
+            --secondary-foreground: 0 0% 98%;
+            --muted: 240 3.7% 15.9%;
+            --muted-foreground: 240 5% 64.9%;
+            --accent: 240 3.7% 15.9%;
+            --accent-foreground: 0 0% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 240 3.7% 15.9%;
+            --input: 240 3.7% 15.9%;
+            --ring: 240 4.9% 83.9%;
+        }
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+<!--    <div class="contracts-container">-->
+<!--        <h1>Loan Contracts</h1>-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>ID</th>-->
+<!--                <th>Loan Amount</th>-->
+<!--                <th>Interest Rate</th>-->
+<!--                <th>Loan Term</th>-->
+<!--                <th>Total Payment</th>-->
+<!--                <th>Total Interest</th>-->
+<!--                <th>Paid</th>-->
+<!--                <th>Remaining</th>-->
+<!--                <th>Last Payment</th>-->
+<!--                <th>Next Payment</th>-->
+<!--                <th>Bank</th>-->
+<!--                <th>Account Number</th>-->
+<!--                <th>Account Name</th>-->
+<!--                <th>Expiration Date</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="hopdongvay : ${hopdongvays}">-->
+<!--                <td th:text="${hopdongvay.id}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.soTien}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.laiSuat}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.thoiHan}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.tongTien}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.tongLai}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.daTra}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.conLai}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.ngayTraGanNhat}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.ngayTraTiepTheo}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.tenNganHang}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.soTaiKhoan}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.tenTaiKhoan}"></td>-->
+<!--                <td th:text="${hopdongvay.CT_HDV.ngayHetHan}"></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+    <h2 class="text-3xl font-bold mb-4">Loan Contracts</h2>
+    <div  th:each="hopdongvay : ${hopdongvays}" class="bg-background text-primary-foreground dark:bg-primary dark:text-primary-foreground p-6 border border-gray-200 rounded-lg my-4">
+
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white dark:bg-card">
+                <thead>
+                <tr class="w-full bg-card dark:bg-card-foreground text-left">
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Mã hợp đồng</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Số tiền vay</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Lãi suất</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Kì hạn</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Tổng tiền lãi</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Tổng tiền phải trả</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Khoản thanh toán hàng kì</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-b border-card dark:border-card-foreground">
+                    <td class="py-3 px-4" th:text="${hopdongvay.id}"></td>
+                    <td class="py-3 px-4" th:text="${#numbers.formatDecimal(hopdongvay.CT_HDV.soTien, 0, 'COMMA', 0, 'POINT')} + ' vnđ'"></td>
+                    <td class="py-3 px-4" th:text="${hopdongvay.CT_HDV.laiSuat}"></td>
+                    <td class="py-3 px-4" th:text="${hopdongvay.CT_HDV.thoiHan } +'tháng' "></td>
+                    <td class="py-3 px-4" th:text="${#numbers.formatDecimal(hopdongvay.CT_HDV.tongLai, 0, 'COMMA', 0, 'POINT')} + ' vnđ'"></td>
+                    <td class="py-3 px-4" th:text="${#numbers.formatDecimal(hopdongvay.CT_HDV.tongTien, 0, 'COMMA', 0, 'POINT')} + ' vnđ'"></td>
+                    <td class="py-3 px-4" th:text="${hopdongvay.CT_HDV.emi}"></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+            <table class="min-w-full bg-white dark:bg-card">
+                <thead>
+                <tr class="w-full bg-card dark:bg-card-foreground text-left">
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Đã trả</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Còn lại</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Lần thanh toán gần nhất</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Hạn thanh toán kì này</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Số tiền thanh toán kì này</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Ngày hết hạn hợp đồng</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-b border-card dark:border-card-foreground">
+                    <td class="py-3 px-4" th:text="${#numbers.formatDecimal(hopdongvay.CT_HDV.daTra, 0, 'COMMA', 0, 'POINT')} + ' vnđ'"></td>
+                    <td class="py-3 px-4" th:text="${#numbers.formatDecimal(hopdongvay.CT_HDV.conLai, 0, 'COMMA', 0, 'POINT')} + ' vnđ'"></td>
+                    <td class="py-3 px-4" th:text="${#temporals.format(hopdongvay.CT_HDV.ngayTraGanNhat, 'dd-MM-yyyy')}"></td>
+                    <td class="py-3 px-4" th:text="${#temporals.format(hopdongvay.CT_HDV.ngayTraTiepTheo, 'dd-MM-yyyy')}"></td>
+                    <td class="py-3 px-4" th:text="${#numbers.formatDecimal(hopdongvay.CT_HDV.soTienKinay, 0, 'COMMA', 0, 'POINT')} + ' vnđ'"></td>
+                    <td class="py-3 px-4" th:text="${#temporals.format(hopdongvay.CT_HDV.ngayHetHan, 'dd-MM-yyyy')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="overflow-x-auto mt-4">
+            <table class="min-w-full bg-white dark:bg-card">
+                <thead>
+                <tr class="w-full bg-card dark:bg-card-foreground text-left">
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Tên khách hàng</th>
+                    <th class="py-3 px-4 font-semibold text-card dark:text-card-foreground">Trạng thái hợp đồng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-b border-card dark:border-card-foreground">
+                    <td class="py-3 px-4" th:text="${hopdongvay.name}"></td>
+                    <td class="py-3 px-4" th:text="${hopdongvay.status.name}"></td>
+                    <td class="py-3 px-4" th:if="${hopdongvay.status.id} == 3"  >
+                    <form  th:action="@{/user/payment/{hdvId}(hdvId= ${hopdongvay.id})}" class="form-control" method="post">
+                        <button type="submit" class="btn btn-primary">Thanh toán</button>
+                    </form>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

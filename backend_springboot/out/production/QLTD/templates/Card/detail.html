@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layoutdetail}">
+    >
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li>/</li>
+                <li><span>Express Card</span></li>
+            </ul><!-- /.thm-breadcrumb list-unstyled -->
+            <h2>Chi tiết thẻ tín dụng</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+    <section class="about-two credit-card__details">
+        <div class="container" th:object="${cards}">
+            <div class="row">
+                <div class="col-lg-6 wow fadeInLeft" data-wow-duration="1500ms">
+                    <div class="about-two__image">
+                        <img th:src="@{${'/images/Thetindung/' + cards.image}}" style="max-width:500px" alt="">
+                    </div><!-- /.about-two__image -->
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="about-two__content">
+                        <div class="block-title text-left">
+                            <p th:text="${cards.moTa1}"></p>
+                            <h2 th:text="${cards.tenThe}"></h2>
+                        </div><!-- /.block-title -->
+                        <p th:text="${cards.moTa2}"></p>
+                        <ul class="list-unstyled about-two__list">
+                            <li>
+                                <i class="fa fa-check-circle"></i>
+                               <th:block th:text="${cards.moTa3}"> </th:block>
+                            </li>
+                            <li>
+                                <i class="fa fa-check-circle"></i>
+                                <th:block th:text="${cards.moTa4}"> </th:block>
+                            </li>
+                            <li>
+                                <i class="fa fa-check-circle"></i>
+                                <th:block th:text="${cards.moTa5}"> </th:block>
+                            </li>
+                            <li>
+                                <i class="fa fa-check-circle"></i>
+                                <th:block th:text="${cards.moTa6}"> </th:block>
+                            </li>
+
+                        </ul><!-- /.list-unstyled -->
+                        <div class="button-wrap">
+                            <a href="/card/mothe" class="thm-btn">Apply For Card</a><!-- /.thm-btn -->
+                            <div class="main-header__info-phone">
+                                <i class="pylon-icon-tech-support"></i>
+                                <div class="main-header__info-phone-content">
+                                    <span>Call Anytime</span>
+                                    <h3><a href="tel:92-666-888-0000">92 666 888 0000</a></h3>
+                                </div><!-- /.main-header__info-phone-content -->
+                            </div><!-- /.main-header__info-phone -->
+                        </div><!-- /.button-wrap -->
+                    </div><!-- /.about-two__content -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.about-two -->
+
+    <section class="feature-three feature-three__card">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-three__box">
+                        <div class="feature-three__box-inner">
+                            <i class="pylon-icon-internet"></i>
+                            <h3><a href="#">Global Acceptability</a></h3>
+                            <p>There many variation of pasages of lorem sum available.</p>
+                        </div><!-- /.feature-three__box-inner -->
+                    </div><!-- /.feature-three__box -->
+                </div><!-- /.col-lg-3 col-md-6 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-three__box">
+                        <div class="feature-three__box-inner">
+                            <i class="pylon-icon-buying"></i>
+                            <h3>
+                                <a href="#">
+                                    Buy Now Pay
+                                    Later
+                                </a>
+                            </h3>
+                            <p>There many variation of pasages of lorem sum available.</p>
+                        </div><!-- /.feature-three__box-inner -->
+                    </div><!-- /.feature-three__box -->
+                </div><!-- /.col-lg-3 col-md-6 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-three__box">
+                        <div class="feature-three__box-inner">
+                            <i class="pylon-icon-online-payment"></i>
+                            <h3><a href="#">SMS & Internet Banking</a></h3>
+                            <p>There many variation of pasages of lorem sum available.</p>
+                        </div><!-- /.feature-three__box-inner -->
+                    </div><!-- /.feature-three__box -->
+                </div><!-- /.col-lg-3 col-md-6 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-three__box">
+                        <div class="feature-three__box-inner">
+                            <i class="pylon-icon-call-center"></i>
+                            <h3><a href="#">24/7 Customer Support</a></h3>
+                            <p>There many variation of pasages of lorem sum available.</p>
+                        </div><!-- /.feature-three__box-inner -->
+                    </div><!-- /.feature-three__box -->
+                </div><!-- /.col-lg-3 col-md-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.feature-three -->
+</section>
+</body>
+</html>

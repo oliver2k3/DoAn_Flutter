@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layoutdetail}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-info" th:object="${users}">
+            <p><strong>Username:</strong> <span th:text="${users.username}"></span></p>
+            <p><strong>Full Name:</strong> <span th:text="${users.name}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${users.email}"></span></p>
+            <p><strong>Phone:</strong> <span th:text="${users.phone}"></span></p>
+
+        </div>
+        <h2><a href="/user/profile/edit"> Đổi thông tin tài khoản</a></h2>
+    </div>
+</section>
+
+</body>
+</html>

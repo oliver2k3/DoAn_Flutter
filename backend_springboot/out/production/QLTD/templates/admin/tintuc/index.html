@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutadmin2}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2>Danh Sách Tin Tức</h2>
+    <h3 ><a th:href="@{/admin/tintuc/add}"> Thêm tin tức </a></h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tiêu đề</th>
+                <th>Mô Tả</th>
+                <th>Mô tả 2</th>
+                <th>Mô tả 3</th>
+                <th>Mô tả 4</th>
+                <th>Thời gian đăng</th>
+                <th>Thời gian duyệt</th>
+                <th>Trạng thái Ẩn</th>
+                <th>Hình Ảnh 1</th>
+                <th>Hình Ảnh 2</th>
+                <th>Hình Ảnh 3</th>
+                <th>Danh mục</th>
+                <th>Thao Tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="goivay" type="com.nhom7.qltd.model.GoiVay"*/-->
+            <tr th:each="tintuc : ${tintucs}">
+                <td th:text="${tintuc.id}"></td>
+                <td th:text="${tintuc.title}"></td>
+                <td th:text="${tintuc.paragraph1}"></td>
+                <td th:text="${tintuc.paragraph2}"></td>
+                <td th:text="${tintuc.paragraph3}"></td>
+                <td th:text="${tintuc.paragraph4}"></td>
+                <td th:text="${tintuc.timeUpload}"></td>
+                <td th:text="${tintuc.timeActive}"></td>
+                <td th:text="${tintuc.hide}"></td>
+
+                <td>
+                    <img th:src="@{${'/images/tintuc/'+tintuc.image1 }}"  style="max-width: 50px" alt="">
+                </td>
+                <td>
+                    <img th:src="@{${'/images/tintuc/'+tintuc.image2 }}"  style="max-width: 50px" alt="">
+                </td>
+                <td>
+                    <img th:src="@{${'/images/tintuc/'+tintuc.image3 }}"  style="max-width: 50px" alt="">
+                </td>
+                <td th:text="${tintuc.category.name}"></td>
+                <td>
+                    <a th:href="@{/admin/tintuc/edit/{id}(id=${tintuc.id})}" class="btn btn-primary">Sửa</a>
+                    <a th:href="@{/admin/tintuc/delete/{id}(id=${tintuc.id})}" class="btn btn-danger">Xóa</a>
+
+                </td>
+                <td th:if="${tintuc.hide}">
+                    <a th:href="@{/admin/tintuc/duyetbai/{id}(id=${tintuc.id})}" class="btn btn-danger">Duyệt</a>
+                </td>
+                <td th:if="${tintuc.hide } !=true ">
+                    <a th:href="@{/admin/tintuc/huyduyet/{id}(id=${tintuc.id})}" class="btn btn-danger">Ẩn bài</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

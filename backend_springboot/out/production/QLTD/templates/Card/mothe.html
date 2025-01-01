@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutdetail}">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(../assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+            <ul class="thm-breadcrumb list-unstyled">
+                <li><a href="index.html">Home</a></li>
+                <li>/</li>
+                <li><span>Apply Now</span></li>
+            </ul><!-- /.thm-breadcrumb list-unstyled -->
+            <h2>Apply Now</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+
+    <section class="apply-one">
+
+        <div class="container">
+
+            <form th:action="@{/card/mothe}" th:object="${hopdongmothes}" class="contact-one__form" method="post" enctype="multipart/form-data">
+                <div class="contact-one__form-box">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block-title">
+
+                                <h2 class="title-block">Chi tiết mở thẻ</h2>
+                            </div><!-- /.block-title-->
+                        </div><!-- /.col-md-12-->
+                    </div><!-- /.row-->
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Thu nhập hàng tháng*</label>
+                                <input type="text" name="salary" th:field="*{salary}" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+
+                        </div><!-- /.col-md-6-->
+                    </div><!-- /.row-->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Purpose of Loan</label>
+                                <select name="GoiVayId" th:field="*{chiTietMoThe.card}" class="contact-one__form-input custom-select" required>
+
+                                    <option th:each="card : ${cards}" th:value="${card.maThe}" th:text="${card.tenThe}" ></option>
+
+
+                                </select>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                        <!-- /.col-md-6-->
+                    </div><!-- /.row-->
+                </div><!-- /.contact-one__form-box-->
+
+                <div class="contact-one__form-box">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block-title">
+                                <p class="small-title">Ask for More Details</p>
+                                <h2 class="title-block">Thông tin cá nhân</h2>
+                            </div><!-- /.block-title-->
+                        </div><!-- /.col-md-12-->
+                    </div><!-- /.row-->
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Họ và tên <strong>[giống giấy tờ tùy thân]</strong></label>
+                                <input type="text" name="Name"  th:field="*{name}" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Email*</label>
+                                <input type="email" name="Email" th:field="*{email}" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Ngày sinh*</label>
+                                <input type="datetime-local" name="birthDay" th:field="*{birthDay}" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                    </div><!-- /.row-->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Số điện thoại*</label>
+                                <input type="number" name="Phone" th:field="*{phone}" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Công việc*</label>
+                                <input type="text" name="job" th:field="*{job}" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                    </div><!-- /.row-->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Địa chỉ* <strong>[as per Taxpayer ID]</strong></label>
+                                <input type="text" th:field="*{address}" name="Address" class="form-control contact-one__form-input" placeholder="" required>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phương thức nhận thẻ</label>
+                                <select name="paymentid" th:field="*{delivery}" class="contact-one__form-input custom-select" required>
+                                    <option th:each="delivery : ${deliveries}" th:value="${delivery.id}" th:text="${delivery.name}"></option>
+
+
+                                </select>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-6-->
+                    </div><!-- /.row-->
+                </div><!-- /.contact-one__form-box-->
+                <div class="contact-one__form-box">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block-title">
+
+                                <h2 class="title-block">Thông tin khác</h2>
+                            </div><!-- /.block-title-->
+                        </div><!-- /.col-md-12-->
+                    </div><!-- /.row-->
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tên công ty</label>
+                                <input type="text" th:field="*{industryName}" name="IndustrName" class="form-control contact-one__form-input" placeholder="">
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-4-->
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Chức vụ</label>
+                                <input type="text" th:field="*{industryPosition}" name="IndustryPosition" class="form-control contact-one__form-input" placeholder="">
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-4-->
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label> Tình trạng hôn nhân</label>
+                                <select th:field="*{maritalStatus}" name="MartialStatus" class="contact-one__form-input custom-select" required>
+                                    <option value="Độc thân">Độc thân</option>
+                                    <option value="Đã kết hôn">Đã kết hôn</option>
+                                    <option value="Ly thân">Ly thân</option>
+                                    <option value="Đã ly hôn">Đã ly hôn</option>
+
+                                    <option value="Partner">Partner</option>
+                                </select>
+                            </div><!-- /.form-group-->
+                        </div><!-- /.col-md-4-->
+                    </div><!-- /.row-->
+                    <div class="contact-one__form-box">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="block-title">
+
+                                    <h2 class="title-block">Giấy tờ tùy thân</h2>
+                                </div><!-- /.block-title-->
+                            </div><!-- /.col-md-12-->
+                        </div><!-- /.row-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cccdImage1">Mặt trước CCCD</label>
+                                    <input class="form-control-file" type="file" id="cccdImage1" name="CCCD1" >
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('cccdImage1')}" th:errors="*{cccdImage1}"></div>
+                                </div>
+                            </div><!-- /.col-md-4-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="cccdImage2">Mặt sau CCCD:</label>
+                                    <input class="form-control-file" type="file" id="cccdImage2" name="CCCD2" >
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('cccdImage2')}" th:errors="*{cccdImage2}"></div>
+                                </div>
+                            </div><!-- /.col-md-4-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="documentFile">Giấy tờ khác</label>
+                                    <input class="form-control-file" type="file" id="documentFile" name="docfile" >
+                                    <div class="alert alert-warning" th:if="${#fields.hasErrors('documentFile')}" th:errors="*{documentFile}"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- /.contact-one__form-box-->
+
+                        <div class="contact-one__form-submit">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Submit" class="thm-btn">
+                                </div><!--/.col-md-12-->
+                            </div><!--/.row-->
+                        </div><!--/.contact-one__form-submit-->
+                    </div>
+                </div>
+            </form><!-- /.contact-one__form-->
+        </div><!-- /.container-->
+    </section><!-- /.contact-one-->
+
+
+</section>
+</body>
+</html>

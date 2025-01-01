@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layoutdetail}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<--!--> <section layout:fragment="content" >
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+    <section class="page-header">
+        <div class="page-header__bg" style="background-image: url(../Layout/User/assets/images/backgrounds/page-header-bg-1-1.jpg);"></div>
+        <!-- /.page-header__bg -->
+        <div class="container">
+
+            <h2>Chi tiết gói vay</h2>
+        </div><!-- /.container -->
+    </section><!-- /.page-header -->
+
+    <section class="service-details" th:object="${goivays}" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="service-sidebar">
+                        <div class="service-sidebar__category">
+                            <ul class="list-unstyled serivces-widget-list">
+
+
+                            </ul>
+                        </div><!-- /.service-sidebar__category -->
+
+                        <div class="document-widget-post">
+                            <h3 class="blog-sidebar__box-title">Download</h3>
+                            <form action="#" id="loan-calculator" class="about-one__form wow fadeInUp" data-wow-duration="1500ms">
+                                <h3>Ước tính khoản vay</h3>
+                                <div class="about-one__form-content">
+                                    <div class="input-box__top">
+                                        <span>1,000,000VNĐ</span>
+                                        <span>100,000,000VNĐ</span>
+                                    </div><!-- /.input-box__top -->
+                                    <div class="input-box">
+                                        <div class="range-slider-count" id="range-slider-count"></div>
+                                        <input type="hidden" value="" id="min-value-rangeslider-count">
+                                        <input type="hidden" value="" id="max-value-rangeslider-count">
+                                    </div><!-- /.input-box -->
+                                    <div class="input-box__top">
+                                        <span>1 Tháng</span>
+                                        <span>12 Tháng</span>
+                                    </div><!-- /.input-box__top -->
+                                    <div class="input-box">
+                                        <div class="range-slider-month" id="range-slider-month"></div>
+                                        <input type="hidden" value="" id="min-value-rangeslider-month">
+                                        <input type="hidden" value="" id="max-value-rangeslider-month">
+                                    </div><!-- /.input-box -->
+                                    <div class="input-box__top">
+                                        <span>1%</span>
+                                        <span>15%</span>
+                                    </div><!-- /.input-box__top -->
+                                    <div class="input-box">
+                                        <div class="range-slider-interest" id="range-slider-interest"></div>
+                                        <input type="hidden" value="" id="min-value-rangeslider-interest">
+                                        <input type="hidden" value="" id="max-value-rangeslider-interest">
+                                    </div><!-- /.input-box -->
+                                    <p>
+                                        <span>Khoản thanh toán hàng tháng</span>
+                                        <b><i id="loan-monthly-pay"></i>VNĐ</b>
+                                    </p>
+                                    <p>
+                                        <span>Tổng thanh toán</span>
+                                        <b><i id="loan-total"></i>VNĐ</b>
+                                    </p>
+                                    <a href="/goivay/dangkivay" class="thm-btn">Vay Ngay</a>
+                                </div><!-- /.about-one__from-content -->
+                            </form>
+
+                        </div><!-- /.document-widget-post -->
+
+                        <div class="service-sidebar__call">
+                            <div class="service-sidebar__call-bg" style="background-image: url(../Layout/User/assets/images/services/service-sidebar-1-1.jpg);"></div><!-- /.service-sidebar__call-bg -->
+                            <i class="pylon-icon-tech-support"></i>
+                            <h3><a href="tel:0812999999">0812999999</a></h3>
+                            <div class="pylon-mail">
+                                <a href="mailto:info@company.com">info@company.com</a>
+                            </div>
+                            <p>Chúng tôi ở đây để giúp khách hàng của chúng tôi bất cứ lúc nào. Bạn có thể gọi 24/7 để được trả lời câu hỏi của bạn.</p>
+                        </div><!-- /.service-sidebar__call -->
+                    </div><!-- /.service-sidebar -->
+
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-8">
+                    <div  class="service-details__content">
+                        <div class="service-details__image">
+                            <img src="../Layout/User/assets/images/services/service-d-1-1.jpg" class="img-fluid" alt="">
+                        </div><!-- /.service-details__image -->
+                        <h3 th:text="${goivays.tenGoiVay}"></h3>
+                        <h5 th:text="'Lãi suất từ 1->11 tháng:'+${goivays.laiSuatCoBan}"></h5>
+                        <h5 th:text="'Lãi suất từ 12->17 tháng:'+${goivays.laiSuat2}"></h5>
+                        <h5 th:text="'Lãi suất từ 18->24 tháng:'+${goivays.laiSuat3}"></h5>
+                        <p th:text="${goivays.moTa1}">
+                        </p>
+                        <p th:text="${goivays.moTa2}">
+
+                        </p>
+
+                        <div class="service-details__loan">
+                            <div class="block-title">
+                                <h4>Yêu cầu cho vay:</h4>
+                            </div>
+                            <p th:text="${goivays.moTa3}">
+                               </p>
+                            <p th:text="${goivays.moTa4}">
+                            </p>
+                            <p th:text="${goivays.moTa5}">
+                            </p>
+                            <p th:text="${goivays.moTa6}">
+                            </p>
+                            <ul class="list-unstyled about-two__list service-details__list">
+                                <li>
+                                    <i class="fa fa-check-circle"></i>
+                                    Chỉ cần giấy tờ cơ bản như CMND, Hộ khẩu, Bằng lái xe, Hợp đồng lao động.
+                                </li>
+                                <li>
+                                    <i class="fa fa-check-circle"></i>
+                                    Vay trực tuyến thủ tục đơn giản nhanh chóng
+                                </li>
+                                <li>
+                                    <i class="fa fa-check-circle"></i>
+                                    Thời hạn vay lên tới 24 tháng
+                                </li>
+                                <li>
+                                    <i class="fa fa-check-circle"></i>
+                                    Không cần tài sản đảm bảo
+                                </li>
+
+                            </ul><!-- /.list-unstyled service-details__list -->
+                        </div><!-- /.col-md-6 -->
+
+                        <div class="faq-one faq-one__faq-page py-0 ">
+                            <ul id="accordion" class="mb-0 wow fadeInUp list-unstyled" data-wow-duration="1500ms">
+                                <li class="active">
+                                    <h2 class="para-title active">
+                                    <span class="collapsed" role="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="far fa-minus"></i>
+                                        Vay tiêu dùng tín chấp là như thế nào?
+                                    </span>
+                                    </h2>
+                                    <div id="collapseTwo" class="collapse show" role="button" aria-labelledby="collapseTwo" data-parent="#accordion">
+                                        <p>
+                                            Vay tiêu dùng tín chấp là hình thức vay không cần tài sản đảm bảo, sẽ dựa vào uy tín(thông qua một số loại giấy tờ nhất định) để phê duyệt khoản vay phù hợp với khách hàng
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="para-title">
+                                    <span class="collapsed" role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        <i class="far fa-plus"></i>
+                                        Sau khi đăng kí khoản vay, thời gian bao lâu tôi mới được giải ngân?
+                                    </span>
+                                    </h2>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="collapseOne" data-parent="#accordion">
+                                        <p>
+                                            Hồ sơ tín chấp của quý khách sau khi được đăng kí thành công trên hệ thống sẽ qua các bược thẩm định và được phê duyệt, sau đó tiến hành giải ngân trong vòng 2h
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="para-title">
+                                    <span class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" role="button" aria-controls="collapseThree">
+                                        <i class="far fa-plus"></i>
+                                      Tôi có thể thanh toán khoản vay trả góp lãi suất thấp bằng hình thức thanh toán nào?
+                                    </span>
+                                    </h2>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="collapseThree" data-parent="#accordion">
+                                        <p>
+                                            Quý khách có thể thanh toán khoản vay lãi suất thấp bằng hình thức chuyển khoản qua VNPAYQR
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- /.service-details__content -->
+                </div><!-- /.col-lg-8 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.service-details -->
+
+</section>
+
+</body>
+</html>
