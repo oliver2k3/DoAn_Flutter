@@ -1,3 +1,5 @@
+import 'package:doan_flutter/screens/home_page.dart';
+import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -5,6 +7,7 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../config.dart';
 import '../dto/get_user_info_dto.dart';
 
 class AccountInfoWidget extends StatefulWidget {
@@ -41,7 +44,7 @@ class _AccountInfoWidgetState extends State<AccountInfoWidget> {
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/user/current-user'),
+        Uri.parse('${Config.baseUrl}/user/current-user'),
         headers: <String, String>{
           'Authorization': token,
         },
@@ -103,9 +106,17 @@ class _AccountInfoWidgetState extends State<AccountInfoWidget> {
                     color: const Color(0xffFFAC30),
                     borderRadius: BorderRadius.circular(80),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.add,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: const Center(
+                      child: Icon(
+                        Icons.add,
+                      ),
                     ),
                   ),
                 ),

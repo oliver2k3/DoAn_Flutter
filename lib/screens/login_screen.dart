@@ -6,6 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../config.dart';
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
 
@@ -201,7 +203,7 @@ class _MyLoginState extends State<MyLogin> {
 
   void login() async {
     final response = await http.post(
-      Uri.parse('http://192.168.1.9:8080/api/user/login'),
+      Uri.parse('${Config.baseUrl}/user/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -239,7 +241,7 @@ class _MyLoginState extends State<MyLogin> {
 
     if (token != null) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/user/current-user'),
+        Uri.parse('${Config.baseUrl}/user/current-user'),
         headers: <String, String>{
           'Authorization': token,
         },

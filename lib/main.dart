@@ -1,10 +1,11 @@
-
-import 'package:doan_flutter/screens/home_page.dart';
-import 'package:doan_flutter/screens/login_screen.dart';
-import 'package:doan_flutter/screens/register_screen.dart';
 import 'package:doan_flutter/util/constant.dart';
-import 'package:doan_flutter/util/theme.dart';
+import 'package:doan_flutter/widgets/bottom_appbar.dart';
 import 'package:flutter/material.dart';
+import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
+import 'screens/home_page.dart';
+import 'screens/transfer_screen.dart';
+import 'util/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,10 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'register': (context) => MyRegister(),
         'login': (context) => MyLogin(),
+        'home': (context) => BaseScreen(child: HomePage(), currentIndex: 0),
+        'transfer': (context) => BaseScreen(child: TransferScreen(), currentIndex: 1),
+
+        // Add other routes here
       },
     );
   }

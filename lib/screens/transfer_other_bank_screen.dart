@@ -4,7 +4,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import '../config.dart';
 import '../dto/get_user_info_dto.dart';
+import 'transfer_screen.dart';
 
 class TransferOtherBankScreen extends StatefulWidget {
   @override
@@ -42,7 +44,7 @@ class _TransferOtherBankScreenState extends State<TransferOtherBankScreen> {
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/user/current-user'),
+        Uri.parse('${Config.baseUrl}/user/current-user'),
         headers: <String, String>{
           'Authorization': token,
         },
@@ -69,7 +71,7 @@ class _TransferOtherBankScreenState extends State<TransferOtherBankScreen> {
     final cardNumber = cardNumberController.text;
     if (cardNumber.isNotEmpty) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/user/$cardNumber'),
+        Uri.parse('${Config.baseUrl}/user/$cardNumber'),
       );
 
       if (response.statusCode == 200) {
@@ -104,7 +106,7 @@ class _TransferOtherBankScreenState extends State<TransferOtherBankScreen> {
       final token = await storage.read(key: 'Authorization');
       if (token != null) {
         final response = await http.post(
-          Uri.parse('http://192.168.1.9:8080/api/user/transfer'),
+          Uri.parse('${Config.baseUrl}/user/transfer'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': token,
@@ -156,8 +158,9 @@ class _TransferOtherBankScreenState extends State<TransferOtherBankScreen> {
                   },
                 ),
                 Text(
-                  'Transfer to Other Bank',
-                  style: TextStyle(color: Color(0xFF333333)),
+                  'CHUYỀN KHOẢN',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 24),
                 ),
               ],
             ),
@@ -177,9 +180,74 @@ class _TransferOtherBankScreenState extends State<TransferOtherBankScreen> {
                     SizedBox(height: 10),
                     Text(
                       'Số dư hiện tại ' + currentBalance,
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                      style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 24),
                     ),
                     SizedBox(height: 24),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => TransferScreen()),
+                              );
+                            },
+                            child: Card(
+                              color: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/baseline_wallet_24.svg',
+                                      width: 28,
+                                      height: 28,
+                                    ),
+                                    SizedBox(height: 3),
+                                    Text(
+                                      'Chuyển khoản cùng ví',
+                                      style: TextStyle(color: Colors.white),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 20),
+                          Card(
+
+                            color: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/baseline_account_balance_24.svg',
+                                    width: 28,
+                                    height: 28,
+                                  ),
+                                  SizedBox(height: 3),
+                                  Text(
+                                    'Chuyển liên ngân hàng',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

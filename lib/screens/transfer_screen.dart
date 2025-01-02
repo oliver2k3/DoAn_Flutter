@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import '../config.dart';
 import '../dto/get_user_info_dto.dart';
 
 class TransferScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _TransferScreenState extends State<TransferScreen> {
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/user/current-user'),
+        Uri.parse('${Config.baseUrl}/user/current-user'),
         headers: <String, String>{
           'Authorization': token,
         },
@@ -67,7 +68,7 @@ class _TransferScreenState extends State<TransferScreen> {
     final cardNumber = cardNumberController.text;
     if (cardNumber.isNotEmpty) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/user/$cardNumber'),
+        Uri.parse('${Config.baseUrl}/user/$cardNumber'),
       );
 
       if (response.statusCode == 200) {
@@ -101,7 +102,7 @@ class _TransferScreenState extends State<TransferScreen> {
       final token = await storage.read(key: 'Authorization');
       if (token != null) {
         final response = await http.post(
-          Uri.parse('http://192.168.1.9:8080/api/user/transfer'),
+          Uri.parse('${Config.baseUrl}/user/transfer'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': token,
@@ -117,11 +118,11 @@ class _TransferScreenState extends State<TransferScreen> {
 
         if (response.statusCode == 200) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Transfer successful')),
+            SnackBar(content: Text('Chuyển khoản thành công')),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Transfer failed: ${response.body}')),
+            SnackBar(content: Text('Chuyển khoản thất bại: ${response.body}')),
           );
         }
       } else {
@@ -153,8 +154,9 @@ class _TransferScreenState extends State<TransferScreen> {
                   },
                 ),
                 Text(
-                  'Transfer',
-                  style: TextStyle(color: Color(0xFF333333)),
+                  'CHUYỀN KHOẢN',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Color(0xFF333333), fontSize: 24),
                 ),
               ],
             ),
@@ -174,11 +176,11 @@ class _TransferScreenState extends State<TransferScreen> {
                     SizedBox(height: 10),
                     Text(
                       'Số dư hiện tại ' + currentBalance,
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                      style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 24),
                     ),
                     SizedBox(height: 24),
                     Text(
-                      'Choose transaction',
+                      'Chọn phương thức',
                       style: TextStyle(color: Color(0xFFC1C1C1)),
                     ),
                     SizedBox(height: 16),
@@ -202,7 +204,7 @@ class _TransferScreenState extends State<TransferScreen> {
                                   ),
                                   SizedBox(height: 3),
                                   Text(
-                                    'Transfer to the same bank',
+                                    'Chuyển khoản cùng ví',
                                     style: TextStyle(color: Colors.white),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
@@ -235,7 +237,7 @@ class _TransferScreenState extends State<TransferScreen> {
                                     ),
                                     SizedBox(height: 3),
                                     Text(
-                                      'Transfer to another bank',
+                                      'Chuyển liên ngân hàng',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ],
@@ -268,7 +270,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             TextField(
                               controller: cardNumberController,
                               decoration: InputDecoration(
-                                hintText: 'Card Number',
+                                hintText: 'Số tài khoản',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -278,7 +280,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             TextField(
                               controller: recipientNameController,
                               decoration: InputDecoration(
-                                hintText: 'Recipient Name',
+                                hintText: 'Người nhận',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -289,7 +291,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             TextField(
                               controller: amountController,
                               decoration: InputDecoration(
-                                hintText: 'Amount',
+                                hintText: 'Số tiền',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -300,7 +302,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             TextField(
                               controller: contentController,
                               decoration: InputDecoration(
-                                hintText: 'Content',
+                                hintText: 'Nội dung chuyển khoản',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -309,7 +311,7 @@ class _TransferScreenState extends State<TransferScreen> {
                             SizedBox(height: 16),
                             ElevatedButton(
                               onPressed: _transferMoney,
-                              child: Text('Confirm'),
+                              child: Text('Xác nhận'),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(double.infinity, 56),
                               ),

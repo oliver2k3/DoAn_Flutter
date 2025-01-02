@@ -1,5 +1,7 @@
+import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../models/model_services.dart';
 import '../widgets/account_info_widget.dart';
 import '../util/file_path.dart';
 import 'transfer_screen.dart'; // Import TransferScreen
@@ -202,14 +204,23 @@ class _HomePageState extends State<HomePage> {
 
   Widget _contentServices(BuildContext context) {
     List<ModelServices> listServices = [
-      ModelServices(title: "Gửi\ntiền", img: send),
-      ModelServices(title: "Nhận\ntiền", img: recive),
-      ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile),
-      ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity),
-      ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback),
-      ModelServices(title: "Mua vé\nxem phim", img: movie),
-      ModelServices(title: "Mua vé\nmáy bay", img: flight),
-      ModelServices(title: "Vay\ntiền", img: menu),
+      ModelServices(title: "Gửi\ntiền", img: send, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TransferScreen()),
+        );
+      }),
+
+      ModelServices(title: "Nhận\ntiền", img: recive, onTap: () { Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TransactionHistoryScreen()),
+      );}),
+      ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile, onTap: () {}),
+      ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity, onTap: () {}),
+      ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback, onTap: () {}),
+      ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {}),
+      ModelServices(title: "Mua vé\nmáy bay", img: flight, onTap: () {}),
+      ModelServices(title: "Vay\ntiền", img: menu, onTap: () {}),
     ];
 
     return SizedBox(
@@ -221,9 +232,7 @@ class _HomePageState extends State<HomePage> {
             (MediaQuery.of(context).size.height / 1.1),
         children: listServices.map((value) {
           return GestureDetector(
-            onTap: () {
-              // Handle service tap
-            },
+            onTap: value.onTap,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -258,9 +267,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-class ModelServices {
-  String title, img;
-  ModelServices({required this.title, required this.img});
 }

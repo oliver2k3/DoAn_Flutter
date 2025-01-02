@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../config.dart';
+
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class _MyRegisterState extends State<MyRegister> {
     final String phoneNumber = _phoneNumberController.text;
 
     final response = await http.post(
-      Uri.parse('http://192.168.1.9:8080/api/user'),
+      Uri.parse('${Config.baseUrl}/user'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
