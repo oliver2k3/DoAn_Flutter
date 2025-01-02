@@ -1,3 +1,4 @@
+import 'package:doan_flutter/screens/add_card_screen.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -213,9 +214,14 @@ class _HomePageState extends State<HomePage> {
 
       ModelServices(title: "Nhận\ntiền", img: recive, onTap: () { Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Tar()),
+        MaterialPageRoute(builder: (context) => AddCardScreen()),
       );}),
-      ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile, onTap: () {}),
+      ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TransactionHistoryScreen()),
+        );
+      }),
       ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity, onTap: () {}),
       ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback, onTap: () {}),
       ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {}),
