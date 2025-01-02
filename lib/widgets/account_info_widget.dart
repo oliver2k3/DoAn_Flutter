@@ -1,3 +1,4 @@
+import 'package:doan_flutter/screens/deposit_money_screen.dart';
 import 'package:doan_flutter/screens/home_page.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +111,7 @@ class _AccountInfoWidgetState extends State<AccountInfoWidget> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => DepositMoneyScreen()),
                       );
                     },
                     child: const Center(

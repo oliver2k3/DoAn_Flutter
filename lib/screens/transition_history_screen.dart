@@ -129,6 +129,8 @@ class TransactionItem extends StatelessWidget {
     String date = data['created'] ?? 'Unknown Date';
     String formattedDate = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(date));
     bool isReceived = data['toUser'] == currentUserCard;
+    String otherPartyName = isReceived ? data['senderName'] : data['receiverName'];
+    String bankName = data['receiverBank'] ?? 'Unknown Bank';
 
     return GestureDetector(
       onTap: () {},
@@ -158,6 +160,8 @@ class TransactionItem extends StatelessWidget {
                   _buildNameAndAmount(name, formattedAmount),
                   const SizedBox(height: 2),
                   _buildDateAndType(formattedDate, isReceived),
+                  const SizedBox(height: 2),
+                  _buildOtherPartyAndBank(otherPartyName, bankName, isReceived),
                 ],
               ),
             ),
@@ -211,6 +215,26 @@ class TransactionItem extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         )
+      ],
+    );
+  }
+
+  Widget _buildOtherPartyAndBank(String otherPartyName, String bankName, bool isReceived) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          isReceived ? 'Người gửi: $otherPartyName' : 'Người nhận: $otherPartyName',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        Text(
+          'Bank: $bankName',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
       ],
     );
   }

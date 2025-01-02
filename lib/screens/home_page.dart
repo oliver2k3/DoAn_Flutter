@@ -1,10 +1,14 @@
 import 'package:doan_flutter/screens/add_card_screen.dart';
+import 'package:doan_flutter/screens/create_saving_screen.dart';
+import 'package:doan_flutter/screens/deposit_money_screen.dart';
+import 'package:doan_flutter/screens/my_cards_screen.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../models/model_services.dart';
 import '../widgets/account_info_widget.dart';
 import '../util/file_path.dart';
+import 'my_savings_screen.dart';
 import 'transfer_screen.dart'; // Import TransferScreen
 
 class HomePage extends StatefulWidget {
@@ -222,8 +226,24 @@ class _HomePageState extends State<HomePage> {
           MaterialPageRoute(builder: (context) => TransactionHistoryScreen()),
         );
       }),
-      ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity, onTap: () {}),
-      ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback, onTap: () {}),
+      ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyCardsScreen()),
+        );
+      }),
+      ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CreateSavingScreen()),
+        );
+      }),
+      ModelServices(title: "Danh sách\nkhoản tiết kiệm", img: cashback, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MySavingsScreen()),
+        );
+      }),
       ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {}),
       ModelServices(title: "Mua vé\nmáy bay", img: flight, onTap: () {}),
       ModelServices(title: "Vay\ntiền", img: menu, onTap: () {}),
