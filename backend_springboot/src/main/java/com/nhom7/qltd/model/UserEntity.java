@@ -54,6 +54,9 @@ public class UserEntity {
     private String phone;
     @Column(name = "CCCD_number")
     private String CCCD;
-
+    @Column(name = "OTP")
+    private String otp;
+    @Column(name = "is_verified")
+    private Boolean isVerified;
 
 }

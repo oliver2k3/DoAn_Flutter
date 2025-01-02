@@ -88,7 +88,9 @@ public class UsersController {
             UserEntity userEntity = userService.validateUser(loginDto);
             if (userEntity != null) {
                 String token = userService.generateToken(userEntity);
+                Boolean isVerified = userEntity.getIsVerified();
                 System.out.println("Login successful for user: " + loginDto.getEmail());
+                responseBody.put("is_verified", isVerified);
                 responseBody.put("token", token);
                 return ResponseEntity.ok(responseBody);
             } else {
@@ -110,6 +112,7 @@ public class UsersController {
             UserEntity userEntity = userService.getUserByEmail(userService.getEmailfromToken(token.substring(7)));
             System.out.println(userEntity);
             GetUserInfoDto getUserInfoDto = userMapper.entityToDto(userEntity);
+            getUserInfoDto.setOtp(userEntity.getOtp());
             return ResponseEntity.ok(getUserInfoDto);
         } catch (IllegalArgumentException ie) {
             responseBody.put("error", ie.getMessage());
@@ -206,6 +209,41 @@ public class UsersController {
         } catch (IllegalArgumentException ie) {
             responseBody.put("error", ie.getMessage());
             return ResponseEntity.badRequest().body(responseBody);
+        }
+    }
+    @PostMapping("/save-otp")
+    public ResponseEntity<Object> saveOtp(@RequestBody Map<String, String> request, @RequestHeader("Authorization") String token) {
+        Map<String, Object> responseBody = new HashMap<>();
+        try {
+            String email = userService.getEmailfromToken(token.substring(7));
+            UserEntity user = userService.getUserByEmail(email);
+            String otp = request.get("otp");
+            userService.saveOtp(user, otp);
+            responseBody.put("message", "OTP saved successfully");
+            return ResponseEntity.ok(responseBody);
+        } catch (Exception e) {
+            responseBody.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
+        }
+    }
+    @PostMapping("/verify-otp")
+    public ResponseEntity<Object> verifyOtp(@RequestBody Map<String, String> request, @RequestHeader("Authorization") String token) {
+        Map<String, Object> responseBody = new HashMap<>();
+        try {
+            String email = userService.getEmailfromToken(token.substring(7));
+            UserEntity user = userService.getUserByEmail(email);
+            String otp = request.get("otp");
+            boolean isVerified = userService.verifyOtp(user, otp);
+            if (isVerified) {
+                responseBody.put("message", "OTP verified successfully");
+                return ResponseEntity.ok(responseBody);
+            } else {
+                responseBody.put("error", "Invalid OTP");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+            }
+        } catch (Exception e) {
+            responseBody.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
         }
     }
 }

@@ -37,6 +37,7 @@ public class UsersService {
         userEntity.setBalance(0.0);
         userEntity.setCardNumber(registerDto.getPhoneNumber());
         userEntity.setBank("VPPAY");
+        userEntity.setIsVerified(false);
         userEntity.setPhone(registerDto.getPhoneNumber());
         userEntity.setPassword(registerDto.getPassword());
         userEntity.setCreated(LocalDateTime.now());
@@ -101,5 +102,17 @@ public class UsersService {
 
     public void updateUser(UserEntity user) {
         userDao.save(user);
+    }
+    public void saveOtp(UserEntity userEntity, String otp) {
+        userEntity.setOtp(otp);
+        userEntity.setIsVerified(true);
+        userDao.save(userEntity);
+    }
+    public boolean verifyOtp(UserEntity user, String otp) {
+        if (user != null && otp.equals(user.getOtp())) {
+
+            return true;
+        }
+        return false;
     }
 }
