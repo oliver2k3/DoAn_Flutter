@@ -6,7 +6,7 @@ class GetUserInfoDto {
   String? bank; // Allow bank to be nullable
   DateTime created;
   DateTime updated;
-
+  String? otp; // Allow otp to be nullable
   GetUserInfoDto({
     required this.name,
     required this.email,
@@ -15,6 +15,7 @@ class GetUserInfoDto {
     this.bank,
     required this.created,
     required this.updated,
+    this.otp,
   });
 
   factory GetUserInfoDto.fromJson(Map<String, dynamic> json) {
@@ -26,6 +27,7 @@ class GetUserInfoDto {
       bank: json['bank'],
       created: DateTime.parse(json['created']),
       updated: DateTime.parse(json['updated']),
+      otp: json['otp'],
     );
   }
 }

@@ -24,30 +24,73 @@ class _AddCardScreenState extends State<AddCardScreen> {
     final String ccv = _ccvController.text;
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
-      final response = await http.post(
-        Uri.parse('${Config.baseUrl}/user/add-card'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': token,
+      // Show OTP input dialog
+      final otp = await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          final otpController = TextEditingController();
+          return AlertDialog(
+            title: Text('Enter OTP'),
+            content: TextField(
+              controller: otpController,
+              decoration: InputDecoration(labelText: 'OTP'),
+              keyboardType: TextInputType.number,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(otpController.text);
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          );
         },
-        body: jsonEncode(<String, String>{
-          'name': name,
-          'bankName': bankName,
-          'cardNumber': cardNumber,
-          'expiredDate': expiredDate,
-          'ccv': ccv,
-        }),
       );
 
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Card added successfully')),
+      if (otp != null && otp.isNotEmpty) {
+        // Verify OTP
+        final verifyResponse = await http.post(
+          Uri.parse('http://192.168.1.9:8080/api/user/verify-otp'),
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({'otp': otp}),
         );
-        Navigator.pop(context);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to add card. Please try again.')),
-        );
+
+        if (verifyResponse.statusCode == 200) {
+          // Proceed with adding card
+          final response = await http.post(
+            Uri.parse('${Config.baseUrl}/user/add-card'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': token,
+            },
+            body: jsonEncode(<String, String>{
+              'name': name,
+              'bankName': bankName,
+              'cardNumber': cardNumber,
+              'expiredDate': expiredDate,
+              'ccv': ccv,
+            }),
+          );
+
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Card added successfully')),
+            );
+            Navigator.pop(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to add card. Please try again.')),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Invalid OTP')),
+          );
+        }
       }
     }
   }

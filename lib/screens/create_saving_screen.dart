@@ -40,27 +40,70 @@ class _CreateSavingScreenState extends State<CreateSavingScreen> {
   Future<void> createSaving() async {
     final token = await storage.read(key: 'Authorization');
     if (token != null && amountController.text.isNotEmpty && selectedDuration != null) {
-      final response = await http.post(
-        Uri.parse('http://192.168.1.9:8080/api/saving/deposit'),
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json',
+      // Show OTP input dialog
+      final otp = await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          final otpController = TextEditingController();
+          return AlertDialog(
+            title: Text('Enter OTP'),
+            content: TextField(
+              controller: otpController,
+              decoration: InputDecoration(labelText: 'OTP'),
+              keyboardType: TextInputType.number,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(otpController.text);
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          );
         },
-        body: json.encode({
-          'amount': double.parse(amountController.text),
-          'depositDuration': int.parse(selectedDuration!.split(' ')[0]),
-          'interestRate': interestRate,
-        }),
       );
 
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Tạo tiết kiệm thành công')),
+      if (otp != null && otp.isNotEmpty) {
+        // Verify OTP
+        final verifyResponse = await http.post(
+          Uri.parse('http://192.168.1.9:8080/api/user/verify-otp'),
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({'otp': otp}),
         );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Tạo tiết kiệm thất bại')),
-        );
+
+        if (verifyResponse.statusCode == 200) {
+          // Proceed with creating saving
+          final response = await http.post(
+            Uri.parse('http://192.168.1.9:8080/api/saving/deposit'),
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({
+              'amount': double.parse(amountController.text),
+              'depositDuration': int.parse(selectedDuration!.split(' ')[0]),
+              'interestRate': interestRate,
+            }),
+          );
+
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Tạo tiết kiệm thành công')),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Tạo tiết kiệm thất bại')),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Invalid OTP')),
+          );
+        }
       }
     }
   }

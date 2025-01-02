@@ -101,34 +101,72 @@ class _TransferScreenState extends State<TransferScreen> {
     if (cardNumber.isNotEmpty && amount != null && amount > 0) {
       final token = await storage.read(key: 'Authorization');
       if (token != null) {
-        final response = await http.post(
-          Uri.parse('${Config.baseUrl}/user/transfer'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': token,
+        // Show OTP input dialog
+        final otp = await showDialog<String>(
+          context: context,
+          builder: (BuildContext context) {
+            final otpController = TextEditingController();
+            return AlertDialog(
+              title: Text('Enter OTP'),
+              content: TextField(
+                controller: otpController,
+                decoration: InputDecoration(labelText: 'OTP'),
+                keyboardType: TextInputType.number,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(otpController.text);
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
+            );
           },
-          body: jsonEncode(<String, dynamic>{
-
-            'receiver': cardNumber,
-            'receiveBank': "VPPAY",
-            'amount': amount,
-            'message': content,
-          }),
         );
 
-        if (response.statusCode == 200) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Chuyển khoản thành công')),
+        if (otp != null && otp.isNotEmpty) {
+          // Verify OTP
+          final verifyResponse = await http.post(
+            Uri.parse('http://192.168.1.9:8080/api/user/verify-otp'),
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({'otp': otp}),
           );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Chuyển khoản thất bại: ${response.body}')),
-          );
+
+          if (verifyResponse.statusCode == 200) {
+            // Proceed with transfer
+            final response = await http.post(
+              Uri.parse('${Config.baseUrl}/user/transfer'),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': token,
+              },
+              body: jsonEncode(<String, dynamic>{
+                'receiver': cardNumber,
+                'receiveBank': "VPPAY",
+                'amount': amount,
+                'message': content,
+              }),
+            );
+
+            if (response.statusCode == 200) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Transfer successful')),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Transfer failed: ${response.body}')),
+              );
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Invalid OTP')),
+            );
+          }
         }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No token found.')),
-        );
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -45,26 +45,69 @@ class _DepositMoneyScreenState extends State<DepositMoneyScreen> {
   Future<void> depositMoney() async {
     final token = await storage.read(key: 'Authorization');
     if (token != null && selectedCard != null && amountController.text.isNotEmpty) {
-      final response = await http.post(
-        Uri.parse('http://192.168.1.9:8080/api/user/deposit'),
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json',
+      // Show OTP input dialog
+      final otp = await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          final otpController = TextEditingController();
+          return AlertDialog(
+            title: Text('Enter OTP'),
+            content: TextField(
+              controller: otpController,
+              decoration: InputDecoration(labelText: 'OTP'),
+              keyboardType: TextInputType.number,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(otpController.text);
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          );
         },
-        body: json.encode({
-          'cardNumber': selectedCard!['cardNumber'],
-          'amount': double.parse(amountController.text),
-        }),
       );
 
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Deposit successful')),
+      if (otp != null && otp.isNotEmpty) {
+        // Verify OTP
+        final verifyResponse = await http.post(
+          Uri.parse('http://192.168.1.9:8080/api/user/verify-otp'),
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({'otp': otp}),
         );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to deposit money')),
-        );
+
+        if (verifyResponse.statusCode == 200) {
+          // Proceed with deposit
+          final response = await http.post(
+            Uri.parse('http://192.168.1.9:8080/api/user/deposit'),
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({
+              'cardNumber': selectedCard!['cardNumber'],
+              'amount': double.parse(amountController.text),
+            }),
+          );
+
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Deposit successful')),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to deposit money')),
+            );
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Invalid OTP')),
+          );
+        }
       }
     }
   }

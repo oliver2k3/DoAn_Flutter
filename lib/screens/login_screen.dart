@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../config.dart';
+import 'create_otp_screen.dart';
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
 
@@ -216,6 +217,7 @@ class _MyLoginState extends State<MyLogin> {
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
       final token = responseBody['token'];
+      final isVerified = responseBody['is_verified'];
 
       // Store the token securely
       print('Authorization: Bearer $token');
@@ -225,11 +227,17 @@ class _MyLoginState extends State<MyLogin> {
         box1.put('email', email.text);
         box1.put('password', password.text);
       }
-      getCurrentUser();
-      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-        return HomePage();
-      },
-      ));
+
+      if (isVerified) {
+        getCurrentUser();
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+          return HomePage();
+        }));
+      } else {
+        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+          return CreateOtpScreen();
+        }));
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Invalid credentials. Please try again.')),
