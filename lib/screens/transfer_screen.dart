@@ -1,9 +1,92 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
 
-class TransferScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import '../dto/get_user_info_dto.dart';
+
+class TransferScreen extends StatefulWidget {
+  @override
+  _TransferScreenState createState() => _TransferScreenState();
+}
+
+class _TransferScreenState extends State<TransferScreen> {
+  final storage = FlutterSecureStorage();
+  GetUserInfoDto? userInfo;
+  final TextEditingController cardNumberController = TextEditingController();
+  final TextEditingController recipientNameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUserInfo();
+    cardNumberController.addListener(_updateRecipientName);
+  }
+
+  @override
+  void dispose() {
+    cardNumberController.removeListener(_updateRecipientName);
+    cardNumberController.dispose();
+    recipientNameController.dispose();
+    super.dispose();
+  }
+
+  Future<void> getCurrentUserInfo() async {
+    final token = await storage.read(key: 'Authorization');
+    if (token != null) {
+      final response = await http.get(
+        Uri.parse('http://192.168.1.9:8080/api/user/current-user'),
+        headers: <String, String>{
+          'Authorization': token,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        setState(() {
+          userInfo = GetUserInfoDto.fromJson(responseBody);
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to fetch user data. Please try again.')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No token found.')),
+      );
+    }
+  }
+
+  Future<void> _updateRecipientName() async {
+    final cardNumber = cardNumberController.text;
+    if (cardNumber.isNotEmpty) {
+      final response = await http.get(
+        Uri.parse('http://192.168.1.9:8080/api/user/$cardNumber'),
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        setState(() {
+          recipientNameController.text = responseBody['name'] ?? 'Unknown';
+        });
+      } else {
+        setState(() {
+          recipientNameController.text = 'Unknown';
+        });
+      }
+    } else {
+      setState(() {
+        recipientNameController.text = '';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentBalance = NumberFormat.currency(locale: 'vi_VN', symbol: 'đ').format(userInfo?.balance);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -31,7 +114,7 @@ class TransferScreen extends StatelessWidget {
                     TextField(
                       enabled: false,
                       decoration: InputDecoration(
-                        hintText: '0123456789',
+                        hintText: userInfo?.name,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -39,7 +122,7 @@ class TransferScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Available balance: 10,000\$',
+                      'Số dư hiện tại ' + currentBalance,
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
                     SizedBox(height: 24),
@@ -104,28 +187,6 @@ class TransferScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 30),
-                    Text(
-                      'Choose beneficiary',
-                      style: TextStyle(color: Color(0xFFC1C1C1)),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      height: 200, // Adjust height as needed
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 10, // Replace with actual item count
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: Container(
-                              width: 100, // Adjust width as needed
-                              child: Center(child: Text('Beneficiary $index')),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 18),
                     Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -134,33 +195,36 @@ class TransferScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           children: [
-                            DropdownButtonFormField<String>(
+                            TextFormField(
+                              initialValue: 'VPPAY', // Set default value
                               decoration: InputDecoration(
                                 hintText: 'Bank',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              items: [
-                                DropdownMenuItem(
-                                  value: 'Bank 1',
-                                  child: Text('Bank 1'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'Bank 2',
-                                  child: Text('Bank 2'),
-                                ),
-                              ],
-                              onChanged: (value) {},
+                              enabled: false, // Make it non-editable
                             ),
                             SizedBox(height: 16),
                             TextField(
+                              controller: cardNumberController,
                               decoration: InputDecoration(
                                 hintText: 'Card Number',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
+                            ),
+                            SizedBox(height: 16),
+                            TextField(
+                              controller: recipientNameController,
+                              decoration: InputDecoration(
+                                hintText: 'Recipient Name',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              enabled: false, // Make it non-editable
                             ),
                             SizedBox(height: 16),
                             TextField(

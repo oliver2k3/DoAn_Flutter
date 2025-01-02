@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/account_info_widget.dart';
 import '../util/file_path.dart';
+import 'transfer_screen.dart'; // Import TransferScreen
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -129,24 +130,32 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          Container(
-            width: 80,
-            padding: const EdgeInsets.only(
-              left: 18,
-              right: 18,
-              top: 28,
-              bottom: 28,
-            ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TransferScreen()),
+              );
+            },
             child: Container(
-              height: 10,
-              width: 10,
-              decoration: const BoxDecoration(
-                color: Color(0xffFFAC30),
-                shape: BoxShape.circle,
+              width: 80,
+              padding: const EdgeInsets.only(
+                left: 18,
+                right: 18,
+                top: 28,
+                bottom: 28,
               ),
-              child: const Center(
-                child: Icon(
-                  Icons.add,
+              child: Container(
+                height: 10,
+                width: 10,
+                decoration: const BoxDecoration(
+                  color: Color(0xffFFAC30),
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.add,
+                  ),
                 ),
               ),
             ),
@@ -196,7 +205,7 @@ class _HomePageState extends State<HomePage> {
       ModelServices(title: "Gửi\ntiền", img: send),
       ModelServices(title: "Nhận\ntiền", img: recive),
       ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile),
-      ModelServices(title: "Thanh toán\nhóa đ��n điện", img: electricity),
+      ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity),
       ModelServices(title: "Gửi tiền\ntiết kiệm", img: cashback),
       ModelServices(title: "Mua vé\nxem phim", img: movie),
       ModelServices(title: "Mua vé\nmáy bay", img: flight),

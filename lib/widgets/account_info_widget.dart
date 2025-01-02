@@ -25,7 +25,7 @@ class _AccountInfoWidgetState extends State<AccountInfoWidget> {
   void initState() {
     super.initState();
     fetchUserInfo();
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       fetchUserInfo();
     });
   }
