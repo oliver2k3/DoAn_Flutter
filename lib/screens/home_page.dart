@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
 
       ModelServices(title: "Nhận\ntiền", img: recive, onTap: () { Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => TransactionHistoryScreen()),
+        MaterialPageRoute(builder: (context) => Tar()),
       );}),
       ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile, onTap: () {}),
       ModelServices(title: "Thanh toán\nhóa đơn điện", img: electricity, onTap: () {}),
