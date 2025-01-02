@@ -34,6 +34,10 @@ public class UsersService {
         UserEntity userEntity = new UserEntity();
         userEntity.setName(registerDto.getName());
         userEntity.setEmail(registerDto.getEmail());
+        userEntity.setBalance(0.0);
+        userEntity.setCardNumber(registerDto.getPhoneNumber());
+        userEntity.setBank("VPPAY");
+        userEntity.setPhone(registerDto.getPhoneNumber());
         userEntity.setPassword(registerDto.getPassword());
         userEntity.setCreated(LocalDateTime.now());
         userEntity.setUpdated(LocalDateTime.now());
@@ -66,6 +70,9 @@ public class UsersService {
         String email = jwtUtil.getEmailFromJwt(token);
         UserEntity userEntity = userDao.findByEmail(email).orElse(null);
         return userEntity.getId();
+    }
+    public String generateToken(UserEntity userEntity) {
+        return jwtUtil.generateToken(userEntity);
     }
     public void payBill(Double amount, String token) {
         String email = jwtUtil.getEmailFromJwt(token);

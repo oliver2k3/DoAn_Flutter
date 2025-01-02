@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -53,5 +54,6 @@ public class UserEntity {
     private String phone;
     @Column(name = "CCCD_number")
     private String CCCD;
+
 
 }

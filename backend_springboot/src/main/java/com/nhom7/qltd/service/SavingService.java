@@ -50,13 +50,17 @@ public class SavingService {
         savingEntity.setAmount(savingDto.getAmount());
         savingEntity.setDepositDuration(savingDto.getDepositDuration());
         savingEntity.setInterestRate(savingDto.getInterestRate());
-        savingEntity.setDepositAmount(savingDto.getAmount()*savingDto.getInterestRate());
+        double depositAmount = savingDto.getAmount() * (savingDto.getInterestRate() / 100) * ((double) savingDto.getDepositDuration() / 12);
+        savingEntity.setDepositAmount(depositAmount);
         savingEntity.setCreatedDate(LocalDateTime.now());
         savingEntity.setMaturityDate(LocalDateTime.now().plusMonths(savingDto.getDepositDuration()));
+        savingEntity.setTotalAmount(savingDto.getAmount()+savingEntity.getDepositAmount());
         savingEntity.setStatus("Active");
         savingDAO.save(savingEntity);
     }
-
+    public void updateSaving(SavingEntity savingEntity) {
+        savingDAO.save(savingEntity);
+    }
     public List<SavingEntity> getSavingsByEmail(String email) {
         return savingDAO.findByEmail(email);
     }

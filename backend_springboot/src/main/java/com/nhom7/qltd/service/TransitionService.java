@@ -22,7 +22,7 @@ public class TransitionService {
         UserEntity sender = userDao.findByCardNumber(transitionDto.getSender()).orElseThrow(
                 () -> new IllegalArgumentException("Sender not found")
         );
-        UserEntity receiver = userDao.findByCardNumber(transitionDto.getReceiver()).orElseThrow(
+        UserEntity receiver = userDao.findByCardNumberAndBank(transitionDto.getReceiver(),transitionDto.getReceiveBank()).orElseThrow(
                 () -> new IllegalArgumentException("Receiver not found")
         );
 
@@ -48,7 +48,12 @@ public class TransitionService {
         transitionEntity.setFromUser(sender.getCardNumber());
         transitionEntity.setToUser(receiver.getCardNumber());
         transitionEntity.setAmount(transitionDto.getAmount());
+        transitionEntity.setSenderBank(sender.getBank());
+        transitionEntity.setReceiverBank(receiver.getBank());
+        transitionEntity.setSenderName(sender.getName());
+        transitionEntity.setReceiverName(receiver.getName());
         transitionEntity.setFee(0.0);
+        transitionEntity.setMessage(transitionDto.getMessage());
         transitionEntity.setCreated(LocalDateTime.now());
 
         transitionDao.save(transitionEntity);
@@ -57,6 +62,12 @@ public class TransitionService {
     public List<TransitionEntity> getMyTransition(String token) {
         String myCardNumber = userService.getCardNumberfromToken(token);
         return transitionDao.findByFromUser(myCardNumber).stream().sorted(
+                (t1, t2) -> t2.getCreated().compareTo(t1.getCreated())
+        ).toList();
+    }
+    public List<TransitionEntity> getReceivedTransitions(String token) {
+        String myCardNumber = userService.getCardNumberfromToken(token);
+        return transitionDao.findByToUser(myCardNumber).stream().sorted(
                 (t1, t2) -> t2.getCreated().compareTo(t1.getCreated())
         ).toList();
     }

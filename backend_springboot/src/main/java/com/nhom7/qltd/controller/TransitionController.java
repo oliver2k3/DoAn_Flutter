@@ -18,4 +18,8 @@ public class TransitionController {
     public ResponseEntity<Object> searchMyPayment( @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(transitionService.getMyTransition(token.substring(7)));
     }
+    @GetMapping("/received")
+    public ResponseEntity<Object> getReceivedTransitions(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(transitionService.getReceivedTransitions(token.substring(7)));
+    }
 }

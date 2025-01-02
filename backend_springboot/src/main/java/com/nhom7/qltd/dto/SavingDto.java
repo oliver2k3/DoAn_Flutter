@@ -13,5 +13,10 @@ public class SavingDto implements Serializable {
     private double amount;
     private  int depositDuration;
     private double interestRate;
-
+    public SavingDto(String email, Double amount, Integer depositDuration, Double interestRate) {
+        this.email = email;
+        this.amount = amount;
+        this.depositDuration = depositDuration;
+        this.interestRate = interestRate;
+    }
 }

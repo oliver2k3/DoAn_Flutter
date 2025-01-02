@@ -29,8 +29,25 @@ public class SavingEntity {
     private String status;
     @Column(name ="deposit_amount")
     private Double depositAmount;
+    @Column(name ="total_amount")
+    private Double totalAmount;
 
+    public SavingEntity() {
+        // No-arg constructor
+    }
 
+    public SavingEntity(Integer id, Double amount, Integer depositDuration, Double interestRate, String email, LocalDateTime createdDate, LocalDateTime maturityDate, String status, Double depositAmount, Double totalAmount) {
+        this.id = id;
+        this.email = email;
+        this.amount = amount;
+        this.createdDate = createdDate;
+        this.maturityDate = maturityDate;
+        this.depositDuration = depositDuration;
+        this.interestRate = interestRate;
+        this.status = status;
+        this.depositAmount = depositAmount;
+        this.totalAmount = totalAmount;
+    }
 
 
     // Getters and Setters
