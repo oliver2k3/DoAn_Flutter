@@ -48,4 +48,15 @@ public class LoanController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
         }
     }
+    @PostMapping("/approve")
+    public ResponseEntity<Object> approveLoan(@RequestParam int loanContractId) {
+        Map<String, Object> responseBody = new HashMap<>();
+        try {
+            loanService.approveLoan(loanContractId);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException ie) {
+            responseBody.put("error", ie.getMessage());
+            return ResponseEntity.badRequest().body(responseBody);
+        }
+    }
 }

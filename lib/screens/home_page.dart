@@ -3,6 +3,7 @@ import 'package:doan_flutter/screens/create_saving_screen.dart';
 import 'package:doan_flutter/screens/deposit_money_screen.dart';
 import 'package:doan_flutter/screens/loan_screen.dart';
 import 'package:doan_flutter/screens/my_cards_screen.dart';
+import 'package:doan_flutter/screens/request_deposit_screen.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -219,7 +220,7 @@ class _HomePageState extends State<HomePage> {
 
       ModelServices(title: "Nhận\ntiền", img: recive, onTap: () { Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AddCardScreen()),
+        MaterialPageRoute(builder: (context) => RequestDepositScreen()),
       );}),
       ModelServices(title: "Nạp tiền\nđiện thoại", img: mobile, onTap: () {
         Navigator.push(

@@ -66,4 +66,22 @@ public class LoanService {
     public List<LoanEntity> getAllLoans() {
         return (List<LoanEntity>) loanDao.findAll();
     }
+    public void approveLoan(int loanContractId) {
+        LoanContractEntity loanContract = loanContractDAO.findById(loanContractId)
+                .orElseThrow(() -> new IllegalArgumentException("Loan contract not found"));
+
+        if (loanContract.getStatus().getId() != 1) {
+            throw new IllegalArgumentException("Loan contract is not in a pending state");
+        }
+
+        UserEntity user = loanContract.getUser();
+        user.setBalance(user.getBalance() + loanContract.getLoanAmount());
+        userService.updateUser(user);
+
+        StatusEntity approvedStatus = statusDao.getStatusById(2); // Assuming 2 is the ID for "Approved" status
+        loanContract.setStatus(approvedStatus);
+        loanContract.setCreatedDate(LocalDateTime.now());
+        loanContract.setExpirationDate(LocalDateTime.now().plusMonths(loanContract.getLoanTerm()));
+        loanContractDAO.save(loanContract);
+    }
 }

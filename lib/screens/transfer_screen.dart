@@ -10,6 +10,9 @@ import '../config.dart';
 import '../dto/get_user_info_dto.dart';
 
 class TransferScreen extends StatefulWidget {
+  final String? prefilledAccountNumber;
+
+  TransferScreen({this.prefilledAccountNumber});
   @override
   _TransferScreenState createState() => _TransferScreenState();
 }
@@ -27,6 +30,9 @@ class _TransferScreenState extends State<TransferScreen> {
     super.initState();
     getCurrentUserInfo();
     cardNumberController.addListener(_updateRecipientName);
+    if (widget.prefilledAccountNumber != null) {
+      cardNumberController.text = widget.prefilledAccountNumber!;
+    }
   }
 
   @override
