@@ -7,6 +7,5 @@ public class LoanDto {
     private String email;
     private float loanAmount;
     private int loanDuration;
-    private float interestRate;
-    private int goiVayId;
+    private int loanId;
 }

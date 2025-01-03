@@ -1,6 +1,7 @@
 package com.nhom7.qltd.controller;
 
 import com.nhom7.qltd.dto.LoanDto;
+import com.nhom7.qltd.model.LoanEntity;
 import com.nhom7.qltd.service.LoanService;
 import com.nhom7.qltd.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,6 +35,17 @@ public class LoanController {
         } catch (DuplicateKeyException de) {
             responseBody.put("error", de.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(responseBody);
+        }
+    }
+    @GetMapping("/all-loans")
+    public ResponseEntity<Object> getAllLoans() {
+        Map<String, Object> responseBody = new HashMap<>();
+        try {
+            List<LoanEntity> loans = loanService.getAllLoans();
+            return ResponseEntity.ok(loans);
+        } catch (Exception e) {
+            responseBody.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
         }
     }
 }
