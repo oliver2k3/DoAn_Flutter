@@ -1,8 +1,11 @@
+import 'package:doan_flutter/admin_screens/admin_screen.dart';
+import 'package:doan_flutter/admin_screens/manage_loan_contract_screen.dart';
 import 'package:doan_flutter/screens/add_card_screen.dart';
 import 'package:doan_flutter/screens/create_saving_screen.dart';
 import 'package:doan_flutter/screens/deposit_money_screen.dart';
 import 'package:doan_flutter/screens/loan_screen.dart';
 import 'package:doan_flutter/screens/my_cards_screen.dart';
+import 'package:doan_flutter/screens/my_request_deposit_screen.dart';
 import 'package:doan_flutter/screens/request_deposit_screen.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +25,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String name = '';
+  int _selectedIndex = 0;
 
+  final List<Widget> _pages = [
+    HomePage(),
+    TransferScreen(),
+    TransferScreen(),
+  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   void _updateName(String newName) {
     setState(() {
       name = newName;
@@ -246,8 +260,18 @@ class _HomePageState extends State<HomePage> {
           MaterialPageRoute(builder: (context) => MySavingsScreen()),
         );
       }),
-      ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {}),
-      ModelServices(title: "Mua vé\nmáy bay", img: flight, onTap: () {}),
+      ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MyRequestScreen()),
+        );
+      }),
+      ModelServices(title: "Mua vé\nmáy bay", img: flight, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AdminScreen()),
+        );
+      }),
       ModelServices(title: "Vay\ntiền", img: menu, onTap: () {
         Navigator.push(
           context,
@@ -300,4 +324,5 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }

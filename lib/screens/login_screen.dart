@@ -1,4 +1,5 @@
 
+import 'package:doan_flutter/admin_screens/admin_screen.dart';
 import 'package:doan_flutter/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -203,6 +204,13 @@ class _MyLoginState extends State<MyLogin> {
   }
 
   void login() async {
+    if (email.text == 'admin' && password.text == 'admin123') {
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+        return AdminScreen();
+      }));
+      return;
+    }
+
     final response = await http.post(
       Uri.parse('${Config.baseUrl}/user/login'),
       headers: <String, String>{

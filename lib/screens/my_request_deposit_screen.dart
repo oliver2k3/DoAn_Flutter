@@ -1,4 +1,4 @@
-// lib/screens/transaction_history_screen.dart
+// lib/screens/my_request_screen.dart
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,14 +8,13 @@ import 'package:intl/intl.dart';
 import '../config.dart';
 import '../dto/get_user_info_dto.dart';
 
-class TransactionHistoryScreen extends StatefulWidget {
+class MyRequestScreen extends StatefulWidget {
   @override
-  _TransactionHistoryScreenState createState() => _TransactionHistoryScreenState();
+  _MyRequestScreenState createState() => _MyRequestScreenState();
 }
 
-class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
-  List sentTransactions = [];
-  List receivedTransactions = [];
+class _MyRequestScreenState extends State<MyRequestScreen> {
+  List allRequests = [];
   final storage = FlutterSecureStorage();
   GetUserInfoDto? userInfo;
 
@@ -23,8 +22,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   void initState() {
     super.initState();
     getCurrentUserInfo();
-    fetchTransactionHistory();
-    fetchReceivedTransactions();
+    fetchMyRequests();
   }
 
   Future<void> getCurrentUserInfo() async {
@@ -54,83 +52,132 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     }
   }
 
-  Future<void> fetchTransactionHistory() async {
+  Future<void> fetchMyRequests() async {
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
       final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/transition/current'),
+        Uri.parse('${Config.baseUrl}/transition/my-requests'),
         headers: {
           'Authorization': token,
         },
       );
 
       if (response.statusCode == 200) {
+        final responseBody = json.decode(response.body);
         setState(() {
-          sentTransactions = json.decode(response.body);
+          allRequests = responseBody;
         });
       } else {
-        throw Exception('Failed to load transaction history');
+        throw Exception('Failed to load requests');
       }
     }
   }
 
-  Future<void> fetchReceivedTransactions() async {
+  Future<void> approveRequest(int requestId) async {
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
-      final response = await http.get(
-        Uri.parse('http://192.168.1.9:8080/api/transition/received'),
+      final response = await http.post(
+        Uri.parse('${Config.baseUrl}/transition/approve'),
         headers: {
           'Authorization': token,
         },
+        body: {'requestId': requestId.toString()},
       );
 
       if (response.statusCode == 200) {
-        setState(() {
-          receivedTransactions = json.decode(response.body);
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Request approved')),
+        );
+        fetchMyRequests();
       } else {
-        throw Exception('Failed to load received transactions');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to approve request')),
+        );
+      }
+    }
+  }
+
+  Future<void> rejectRequest(int requestId) async {
+    final token = await storage.read(key: 'Authorization');
+    if (token != null) {
+      final response = await http.post(
+        Uri.parse('${Config.baseUrl}/transition/reject'),
+        headers: {
+          'Authorization': token,
+        },
+        body: {'requestId': requestId.toString()},
+      );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Request rejected')),
+        );
+        fetchMyRequests();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to reject request')),
+        );
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    List allTransactions = [...sentTransactions, ...receivedTransactions];
-    allTransactions.sort((a, b) => DateTime.parse(b['created']).compareTo(DateTime.parse(a['created'])));
+    allRequests.sort((a, b) => DateTime.parse(b['createdDate']).compareTo(DateTime.parse(a['createdDate'])));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction History'),
+        title: Text('Yêu cầu gửi tiền'),
       ),
-      body: allTransactions.isEmpty
+      body: allRequests.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
-        itemCount: allTransactions.length,
+        itemCount: allRequests.length,
         itemBuilder: (context, index) {
-          return TransactionItem(data: allTransactions[index], currentUserCard: userInfo?.cardNumber);
+          return RequestItem(
+            data: allRequests[index],
+            currentUserCard: userInfo?.cardNumber,
+            onApprove: approveRequest,
+            onReject: rejectRequest,
+          );
         },
       ),
     );
   }
 }
 
-class TransactionItem extends StatelessWidget {
+class RequestItem extends StatelessWidget {
   final Map<String, dynamic> data;
   final String? currentUserCard;
+  final Function(int) onApprove;
+  final Function(int) onReject;
 
-  const TransactionItem({Key? key, required this.data, required this.currentUserCard}) : super(key: key);
+  const RequestItem({
+    Key? key,
+    required this.data,
+    required this.currentUserCard,
+    required this.onApprove,
+    required this.onReject,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String name = data['toUser'] ?? 'Unknown';
+    String sender = data['sender'] ?? 'Unknown';
+    String receiver = data['receiver'] ?? 'Unknown';
     double amount = data['amount'] ?? 0.0;
     String formattedAmount = NumberFormat.currency(locale: 'vi', symbol: 'đ').format(amount);
-    String date = data['created'] ?? 'Unknown Date';
-    String formattedDate = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(date));
-    bool isReceived = data['toUser'] == currentUserCard;
-    String otherPartyName = isReceived ? data['senderName'] : data['receiverName'];
-    String bankName = data['receiverBank'] ?? 'Unknown Bank';
+    String date = data['createdDate'] ?? '';
+    String formattedDate;
+    String message = data['message'] ?? '';
+    String statusName = data['status'] ?? 'Unknown';
+    try {
+      formattedDate = DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(date));
+    } catch (e) {
+      formattedDate = 'Unknown Date';
+    }
+
+    bool isReceived = data['receiverCardNumber'] == currentUserCard;
+    int status = data['statusId'] ?? 0;
 
     return GestureDetector(
       onTap: () {},
@@ -149,22 +196,15 @@ class TransactionItem extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  _buildNameAndAmount( otherPartyName,isReceived, formattedAmount),
-                  const SizedBox(height: 2),
-                  _buildDateAndType(formattedDate, isReceived),
-                  const SizedBox(height: 2),
-                  _buildOtherPartyAndBank(name, bankName ,isReceived),
-                ],
-              ),
-            ),
+            _buildNameAndAmount(sender,receiver, isReceived,formattedAmount),
+            const SizedBox(height: 2),
+            _buildDateAndType(formattedDate, isReceived),
+            const SizedBox(height: 2),
+            _buildOtherPartyAndBank(message,statusName),
+            if (isReceived && status == 1) _buildActionButtons(data['id']),
           ],
         ),
       ),
@@ -194,12 +234,13 @@ class TransactionItem extends StatelessWidget {
     );
   }
 
-  Widget _buildNameAndAmount(String otherPartyName, bool isReceived, String amount) {
+  Widget _buildNameAndAmount(String sender,String receiver, bool isReceived, String amount) {
     return Row(
       children: <Widget>[
         Expanded(
           child: Text(
-            isReceived ? 'Người gửi: $otherPartyName' : 'Người nhận: $otherPartyName',
+            isReceived ? 'Người gửi: $sender' : 'Người nhận: $receiver',
+
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
@@ -219,7 +260,7 @@ class TransactionItem extends StatelessWidget {
     );
   }
 
-  Widget _buildOtherPartyAndBank(String name, String bankName, bool isReceived) {
+  Widget _buildOtherPartyAndBank(String name, String statusName) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -230,10 +271,26 @@ class TransactionItem extends StatelessWidget {
           style: TextStyle(fontSize: 12, color: Colors.grey),
         ),
         Text(
-          'Bank: $bankName',
+          statusName,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons(int requestId) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+          onPressed: () => onApprove(requestId),
+          child: Text('Chấp nhận'),
+        ),
+        TextButton(
+          onPressed: () => onReject(requestId),
+          child: Text('Từ chối'),
         ),
       ],
     );

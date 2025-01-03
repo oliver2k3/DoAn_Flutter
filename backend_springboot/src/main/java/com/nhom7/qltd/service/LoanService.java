@@ -84,4 +84,14 @@ public class LoanService {
         loanContract.setExpirationDate(LocalDateTime.now().plusMonths(loanContract.getLoanTerm()));
         loanContractDAO.save(loanContract);
     }
+    public void rejectLoanContract(int contractId) {
+        LoanContractEntity loanContract = loanContractDAO.findById(contractId)
+                .orElseThrow(() -> new IllegalArgumentException("Loan contract not found"));
+        if (loanContract.getStatus().getId() != 1) {
+            throw new IllegalArgumentException("Loan contract is not in a pending state");
+        }
+        StatusEntity rejectedStatus = statusDao.getStatusById(3); // Assuming 3 is the ID for "Rejected" status
+        loanContract.setStatus(rejectedStatus);
+        loanContractDAO.save(loanContract);
+    }
 }

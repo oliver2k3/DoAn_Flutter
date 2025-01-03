@@ -11,6 +11,7 @@ public class RequestDepositDto  implements Serializable {
     private static final long serialVersionUID = 1L;
     String requesterEmail;
     String receiver;
+
     String receiveBank;
     double amount;
     String message;

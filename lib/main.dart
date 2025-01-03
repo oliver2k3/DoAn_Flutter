@@ -1,5 +1,5 @@
 import 'package:doan_flutter/util/constant.dart';
-import 'package:doan_flutter/widgets/bottom_appbar.dart';
+
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
@@ -52,8 +52,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'register': (context) => MyRegister(),
         'login': (context) => MyLogin(),
-        'home': (context) => BaseScreen(child: HomePage(), currentIndex: 0),
-        'transfer': (context) => BaseScreen(child: TransferScreen(), currentIndex: 1),
+        'home': (context) =>  HomePage(),
+
 
         // Add other routes here
       },

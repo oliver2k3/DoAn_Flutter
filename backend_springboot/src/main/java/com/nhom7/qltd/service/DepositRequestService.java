@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -84,4 +85,32 @@ public class DepositRequestService {
 //        transition.setCreated(LocalDateTime.now());
 //        transitionDAO.save(transition);
     }
+    public List<DepositRequestEntity> getSentRequests(String email) {
+        UserEntity user = userService.getUserByEmail(email);
+        return depositRequestDAO.findByRequester(user);
+    }
+
+    public List<DepositRequestEntity> getReceivedRequests(String email) {
+        UserEntity user = userService.getUserByEmail(email);
+        return depositRequestDAO.findByReceiver(user);
+    }
+    public List<DepositRequestEntity> getAllRequests(String email) {
+        UserEntity user = userService.getUserByEmail(email);
+        List<DepositRequestEntity> sentRequests = depositRequestDAO.findByRequester(user);
+        List<DepositRequestEntity> receivedRequests = depositRequestDAO.findByReceiver(user);
+        sentRequests.addAll(receivedRequests);
+        return sentRequests;
+    }
+    public void rejectDepositRequest(int requestId) {
+        DepositRequestEntity depositRequest = depositRequestDAO.findById(requestId)
+                .orElseThrow(() -> new IllegalArgumentException("Deposit request not found"));
+
+        if (depositRequest.getStatus().getId() != 1) { // Ensure the request is in a pending state
+            throw new IllegalArgumentException("Deposit request is not in a pending state");
+        }
+        StatusEntity status = statusDao.getStatusById(3);
+        depositRequest.setStatus(status); // Assuming 3 represents 'Rejected'
+        depositRequestDAO.save(depositRequest);
+    }
+
 }
