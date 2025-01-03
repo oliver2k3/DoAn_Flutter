@@ -1,6 +1,7 @@
 import 'package:doan_flutter/screens/add_card_screen.dart';
 import 'package:doan_flutter/screens/create_saving_screen.dart';
 import 'package:doan_flutter/screens/deposit_money_screen.dart';
+import 'package:doan_flutter/screens/loan_screen.dart';
 import 'package:doan_flutter/screens/my_cards_screen.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
@@ -246,7 +247,12 @@ class _HomePageState extends State<HomePage> {
       }),
       ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {}),
       ModelServices(title: "Mua vé\nmáy bay", img: flight, onTap: () {}),
-      ModelServices(title: "Vay\ntiền", img: menu, onTap: () {}),
+      ModelServices(title: "Vay\ntiền", img: menu, onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoanScreen()),
+        );
+      }),
     ];
 
     return SizedBox(
