@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../config.dart';
 import 'home_page.dart';
 
 class CreateOtpScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _CreateOtpScreenState extends State<CreateOtpScreen> {
       final token = await storage.read(key: 'Authorization');
       if (token != null) {
         final response = await http.post(
-          Uri.parse('http://192.168.1.9:8080/api/user/save-otp'),
+          Uri.parse('${Config.baseUrl}/user/save-otp'),
           headers: {
             'Authorization': token,
             'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ class _CreateOtpScreenState extends State<CreateOtpScreen> {
 
         if (response.statusCode == 200) {
           final verifyResponse = await http.post(
-            Uri.parse('http://192.168.1.9:8080/api/user/save-otp'),
+            Uri.parse('${Config.baseUrl}/user/save-otp'),
             headers: {
               'Authorization': token,
               'Content-Type': 'application/json',

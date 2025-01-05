@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:doan_flutter/screens/success_screen.dart';
 import 'package:doan_flutter/screens/transfer_other_bank_screen.dart';
+import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +10,9 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../config.dart';
 import '../dto/get_user_info_dto.dart';
+import 'home_page.dart';
+import 'my_profile_screen.dart';
+import 'my_request_deposit_screen.dart';
 
 class TransferScreen extends StatefulWidget {
   final String? prefilledAccountNumber;
@@ -24,6 +29,30 @@ class _TransferScreenState extends State<TransferScreen> {
   final TextEditingController recipientNameController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
+
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    HomePage(),
+    TransactionHistoryScreen(),
+    MyRequestScreen(),
+    MyProfileScreen()
+  ];
+  void _onItemTapped(int index) {
+    if (index != _selectedIndex) {
+      // Điều hướng đến trang tương ứng
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => _pages[index]),
+      );
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
+
+
+
 
   @override
   void initState() {
@@ -134,7 +163,7 @@ class _TransferScreenState extends State<TransferScreen> {
         if (otp != null && otp.isNotEmpty) {
           // Verify OTP
           final verifyResponse = await http.post(
-            Uri.parse('http://192.168.1.9:8080/api/user/verify-otp'),
+            Uri.parse('${Config.baseUrl}/user/verify-otp'),
             headers: {
               'Authorization': token,
               'Content-Type': 'application/json',
@@ -159,8 +188,9 @@ class _TransferScreenState extends State<TransferScreen> {
             );
 
             if (response.statusCode == 200) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Transfer successful')),
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => SuccessScreen()),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -370,6 +400,30 @@ class _TransferScreenState extends State<TransferScreen> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Trang chủ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'Lịch sử',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.send),
+            label: 'Yêu cầu',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.verified_user),
+            label: 'Tài khoản',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xffFFAC30), // Màu khi được chọn
+        unselectedItemColor: Colors.grey, // Màu khi không được chọn
+        onTap: _onItemTapped,
       ),
     );
   }

@@ -1,26 +1,24 @@
-// lib/screens/my_cards_screen.dart
 import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:doan_flutter/screens/login_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:intl/intl.dart';
 import '../config.dart';
-import 'add_card_screen.dart';
 import 'home_page.dart';
-import 'my_profile_screen.dart';
 import 'my_request_deposit_screen.dart';
 
-class MyCardsScreen extends StatefulWidget {
+class MyProfileScreen extends StatefulWidget {
   @override
-  _MyCardsScreenState createState() => _MyCardsScreenState();
+  _MyProfileScreenState createState() => _MyProfileScreenState();
 }
 
-class _MyCardsScreenState extends State<MyCardsScreen> {
-  List cards = [];
+class _MyProfileScreenState extends State<MyProfileScreen> {
   final storage = FlutterSecureStorage();
-
+  Map<String, dynamic> userInfo = {};
+  bool isLoading = true;
   int _selectedIndex = 0;
+
   final List<Widget> _pages = [
     HomePage(),
     TransactionHistoryScreen(),
@@ -39,78 +37,72 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
       });
     }
   }
-
-
-
-
-
   @override
   void initState() {
     super.initState();
-    fetchUserCards();
+    _fetchUserInfo();
   }
 
-  Future<void> fetchUserCards() async {
+  Future<void> _fetchUserInfo() async {
     final token = await storage.read(key: 'Authorization');
     if (token != null) {
       final response = await http.get(
-        Uri.parse('${Config.baseUrl}/user/my-cards'),
-        headers: {
+        Uri.parse('${Config.baseUrl}/user/current-user'),
+        headers: <String, String>{
           'Authorization': token,
         },
       );
 
       if (response.statusCode == 200) {
         setState(() {
-          cards = json.decode(response.body);
+          userInfo = jsonDecode(response.body);
+          isLoading = false;
         });
       } else {
-        throw Exception('Failed to load cards');
+        setState(() {
+          isLoading = false;
+        });
+        print('Failed to retrieve user info.');
       }
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      print('No token found.');
     }
+  }
+
+  void _logout() async {
+    await storage.delete(key: 'Authorization');
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MyLogin()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Cards'),
+        title: Text('My Profile'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: _logout,
+          ),
+        ],
       ),
-      body: Padding(
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: cards.length,
-                itemBuilder: (context, index) {
-                  final card = cards[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text('Card Number: ${card['cardNumber']}'),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Bank Name: ${card['bankName']}'),
-                          Text('Card Holder: ${card['name']}'),
-                          Text('Expiry Date: ${card['expiredDate']}'),
-                          Text('Balance: ${NumberFormat.currency(locale: 'vi_VN', symbol: 'đ').format(card['balance'])}'),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddCardScreen()),
-                );
-              },
-              child: Text('Add Card'),
-            ),
+            Text('Name: ${userInfo['name'] ?? ''}', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 8),
+            Text('Email: ${userInfo['email'] ?? ''}', style: TextStyle(fontSize: 18)),
+            // Add more user info fields as needed
           ],
         ),
       ),
@@ -138,7 +130,6 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
         unselectedItemColor: Colors.grey, // Màu khi không được chọn
         onTap: _onItemTapped,
       ),
-
     );
   }
 }

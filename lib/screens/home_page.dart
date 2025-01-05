@@ -5,6 +5,8 @@ import 'package:doan_flutter/screens/create_saving_screen.dart';
 import 'package:doan_flutter/screens/deposit_money_screen.dart';
 import 'package:doan_flutter/screens/loan_screen.dart';
 import 'package:doan_flutter/screens/my_cards_screen.dart';
+import 'package:doan_flutter/screens/my_loan_contract.dart';
+import 'package:doan_flutter/screens/my_profile_screen.dart';
 import 'package:doan_flutter/screens/my_request_deposit_screen.dart';
 import 'package:doan_flutter/screens/request_deposit_screen.dart';
 import 'package:doan_flutter/screens/transition_history_screen.dart';
@@ -29,13 +31,21 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     HomePage(),
-    TransferScreen(),
-    TransferScreen(),
+    TransactionHistoryScreen(),
+    MyRequestScreen(),
+    MyProfileScreen()
   ];
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index != _selectedIndex) {
+      // Điều hướng đến trang tương ứng
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => _pages[index]),
+      );
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
   void _updateName(String newName) {
     setState(() {
@@ -108,6 +118,30 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Trang chủ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'Lịch sử',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.send),
+            label: 'Yêu cầu',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.verified_user),
+            label: 'Tài khoản',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xffFFAC30), // Màu khi được chọn
+        unselectedItemColor: Colors.grey, // Màu khi không được chọn
+        onTap: _onItemTapped,
       ),
     );
   }
@@ -183,9 +217,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          _buildSendMoneyItem(avatorOne, 'Mike'),
-          _buildSendMoneyItem(avatorTwo, 'Joseph'),
-          _buildSendMoneyItem(avatorThree, 'Ashley'),
+          _buildSendMoneyItem(avatorOne, 'Phúc'),
+          _buildSendMoneyItem(avatorTwo, 'Phuc'),
+          _buildSendMoneyItem(avatorThree, 'Hiếu'),
         ],
       ),
     );
@@ -263,13 +297,13 @@ class _HomePageState extends State<HomePage> {
       ModelServices(title: "Mua vé\nxem phim", img: movie, onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MyRequestScreen()),
+          MaterialPageRoute(builder: (context) => MyLoanContractScreen()),
         );
       }),
       ModelServices(title: "Mua vé\nmáy bay", img: flight, onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AdminScreen()),
+          MaterialPageRoute(builder: (context) => LoanScreen()),
         );
       }),
       ModelServices(title: "Vay\ntiền", img: menu, onTap: () {

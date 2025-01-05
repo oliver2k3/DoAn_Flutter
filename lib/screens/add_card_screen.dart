@@ -1,3 +1,4 @@
+import 'package:doan_flutter/screens/success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -51,7 +52,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
       if (otp != null && otp.isNotEmpty) {
         // Verify OTP
         final verifyResponse = await http.post(
-          Uri.parse('http://192.168.1.9:8080/api/user/verify-otp'),
+          Uri.parse('${Config.baseUrl}/user/verify-otp'),
           headers: {
             'Authorization': token,
             'Content-Type': 'application/json',
@@ -77,8 +78,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
           );
 
           if (response.statusCode == 200) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Card added successfully')),
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => SuccessScreen()),
             );
             Navigator.pop(context);
           } else {

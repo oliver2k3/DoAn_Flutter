@@ -1,4 +1,5 @@
 // lib/screens/my_request_screen.dart
+import 'package:doan_flutter/screens/transition_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -7,6 +8,8 @@ import 'package:intl/intl.dart';
 
 import '../config.dart';
 import '../dto/get_user_info_dto.dart';
+import 'home_page.dart';
+import 'my_profile_screen.dart';
 
 class MyRequestScreen extends StatefulWidget {
   @override
@@ -17,6 +20,30 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
   List allRequests = [];
   final storage = FlutterSecureStorage();
   GetUserInfoDto? userInfo;
+
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    HomePage(),
+    TransactionHistoryScreen(),
+    MyRequestScreen(),
+    MyProfileScreen()
+  ];
+  void _onItemTapped(int index) {
+    if (index != _selectedIndex) {
+      // Điều hướng đến trang tương ứng
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => _pages[index]),
+      );
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+  }
+
+
+
+
 
   @override
   void initState() {
@@ -141,6 +168,30 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
             onReject: rejectRequest,
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Trang chủ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'Lịch sử',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.send),
+            label: 'Yêu cầu',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.verified_user),
+            label: 'Tài khoản',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xffFFAC30), // Màu khi được chọn
+        unselectedItemColor: Colors.grey, // Màu khi không được chọn
+        onTap: _onItemTapped,
       ),
     );
   }

@@ -81,6 +81,8 @@ public class LoanService {
         StatusEntity approvedStatus = statusDao.getStatusById(2); // Assuming 2 is the ID for "Approved" status
         loanContract.setStatus(approvedStatus);
         loanContract.setCreatedDate(LocalDateTime.now());
+        loanContract.setThisMonthAmount(loanContract.getEmi());
+        loanContract.setNextPayment(LocalDateTime.now().plusMonths(1));
         loanContract.setExpirationDate(LocalDateTime.now().plusMonths(loanContract.getLoanTerm()));
         loanContractDAO.save(loanContract);
     }
@@ -93,5 +95,40 @@ public class LoanService {
         StatusEntity rejectedStatus = statusDao.getStatusById(3); // Assuming 3 is the ID for "Rejected" status
         loanContract.setStatus(rejectedStatus);
         loanContractDAO.save(loanContract);
+    }
+
+    public List<LoanContractEntity> getMyLoanContracts(String email) {
+        UserEntity user = userService.getUserByEmail(email);
+        List<LoanContractEntity> loanContracts = loanContractDAO.findByUser(user);
+
+        for (LoanContractEntity loanContract : loanContracts) {
+            if (loanContract.getNextPayment() != null && loanContract.getNextPayment().isBefore(LocalDateTime.now())) {
+                StatusEntity overdueStatus = statusDao.getStatusById(4); // Assuming 4 is the ID for "Overdue" status
+                loanContract.setStatus(overdueStatus);
+                loanContractDAO.save(loanContract);
+            }
+        }
+        return loanContracts;
+    }
+
+    public void makePayment(int contractId, String email) {
+        UserEntity user = userService.getUserByEmail(email);
+        LoanContractEntity loanContract = loanContractDAO.findById(contractId)
+                .orElseThrow(() -> new IllegalArgumentException("Loan contract not found"));
+
+
+
+        if (user.getBalance() < loanContract.getThisMonthAmount()) {
+            throw new IllegalArgumentException("Insufficient balance");
+        }
+
+        user.setBalance(user.getBalance() - loanContract.getThisMonthAmount());
+        loanContract.setPaid(loanContract.getPaid() + loanContract.getThisMonthAmount());
+        loanContract.setRemaining(loanContract.getRemaining() - loanContract.getThisMonthAmount());
+        loanContract.setNextPayment(loanContract.getNextPayment().plusMonths(1));
+        loanContract.setThisMonthAmount(loanContract.getEmi());
+        loanContract.setStatus(statusDao.getStatusById(2)); // Assuming 2 is the ID for "Approved" status
+        loanContractDAO.save(loanContract);
+        userService.updateUser(user);
     }
 }
